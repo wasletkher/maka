@@ -2,47 +2,981 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<!-- ===== Open Graph tags — عشان تظهر معاينة حلوة على واتساب/فيسبوك ===== -->
-<meta property="og:title" content="وصلة خير — نربط الخير ببيوت الله">
-<meta property="og:description" content="اتكفل بغسيل سجاد مسجد قريب منك، بشفافية كاملة وتوثيق بالصور قبل وبعد">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>وصلة خير | اغسل سجاد مسجد باسمك أو باسم حبيبك</title>
+<meta name="description" content="اختار مسجد محتاج، وفريق مؤسسة مكة يغسل ويعقم سجاده ويبعتلك الصور والفيديو. ومتدفعش ولا جنيه غير بعد ما تشوف التنفيذ بعينك.">
+<meta property="og:title" content="وصلة خير | اغسل سجاد مسجد باسمك أو باسم حبيبك">
+<meta property="og:description" content="صدقة جارية بتفضل في ميزانك مع كل سجدة. الدفع بعد التنفيذ والتوثيق بالصور والفيديو.">
 <meta property="og:image" content="https://wasletkher.github.io/maka/logo.png">
-<meta property="og:url" content="https://wasletkher.github.io/maka/">
 <meta property="og:type" content="website">
-<meta property="og:locale" content="ar_AR">
-
-<title>وصلة خير</title>
+<meta name="theme-color" content="#3D0F0E">
+<meta name="color-scheme" content="light">
 <link rel="icon" href="logo.png">
+<link rel="preconnect" href="https://script.google.com">
+<link rel="preconnect" href="https://script.googleusercontent.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+<!-- Google Analytics 4 (نفس الحساب الحالي) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YXEQS966W9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-YXEQS966W9');
+</script>
+
+<script>
+/* ============================================================
+   ★ إعدادات الصفحة - دي الحاجات الوحيدة اللي ممكن تغيّرها هنا
+   ============================================================ */
+// رابط جوجل سكريبت (نفس الرابط الحالي - بيفضل ثابت مع كل "New version")
+const API_URL = 'https://script.google.com/macros/s/AKfycbxqpyF8uM5slLOtqB80jOrhg1d5sWhvQxZyoKvlzCKzAPhSAAhSaWoBrURP3f4pq3Hbkg/exec';
+// رقم بيكسل فيسبوك (Meta Pixel) - اكتبه بين العلامتين لما تجيبه، وسيبه فاضي لحد كده
+const META_PIXEL_ID = '';
+// رابط الصفحة نفسها (بيتحط في رسايل المشاركة)
+const PUBLIC_URL = 'https://wasletkher.github.io/maka/';
+</script>
+
+<script>
+// ★ بيكسل فيسبوك - بيشتغل بس لو اتكتب رقمه فوق
+if (META_PIXEL_ID) {
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+  n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+  document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', META_PIXEL_ID);
+  fbq('track', 'PageView');
+}
+</script>
 
 <style>
-  body{
-    font-family:'Tahoma',sans-serif;
-    background:#3D0F0E;
-    color:#fff;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    height:100vh;
-    margin:0;
-    text-align:center;
-  }
-  img{width:70px;height:70px;border-radius:50%;margin-bottom:14px;}
-  a{color:#E3C475;}
+:root{
+  --m950:#2E0B0A; --m900:#3D0F0E; --m800:#521110; --m700:#6B1816; --m100:#F5E6E5; --m50:#FBF3F2;
+  --g700:#9C7222; --g500:#C99B33; --g300:#E3C475; --g100:#F7ECD2;
+  --cream:#FAF7F1; --paper:#FFFFFF; --ink:#1D2622; --soft:#55635D; --mute:#86918B; --line:#E9E3D6;
+  --red:#C8433D; --red-bg:#FBEAE8; --orange:#B86E14; --orange-bg:#FCF0DF; --green:#1F7A4A; --green-bg:#E6F4EB;
+  --wa:#25D366;
+  --sh1:0 2px 10px rgba(46,11,10,.06); --sh2:0 12px 30px rgba(46,11,10,.12); --sh3:0 24px 60px rgba(46,11,10,.25);
+  --r:18px;
+  --star:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44'%3E%3Cg fill='none' stroke='white' stroke-width='1' opacity='0.08'%3E%3Crect x='10' y='10' width='24' height='24'/%3E%3Crect x='10' y='10' width='24' height='24' transform='rotate(45 22 22)'/%3E%3C/g%3E%3C/svg%3E");
+}
+*{box-sizing:border-box;}
+html{-webkit-tap-highlight-color:transparent;scroll-behavior:smooth;}
+body{margin:0;font-family:'Cairo',system-ui,-apple-system,'Segoe UI',Tahoma,sans-serif;background:var(--cream);color:var(--ink);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;}
+img{max-width:100%;display:block;}
+button{font-family:inherit;cursor:pointer;}
+a{color:inherit;}
+.wrap{max-width:760px;margin:0 auto;padding:0 16px;}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);}
+
+/* ===== الهيدر والواجهة ===== */
+.hero{background:var(--star),linear-gradient(165deg,var(--m950),var(--m800) 75%);background-size:44px 44px,cover;color:#fff;padding:14px 0 26px;}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:10px;}
+.brand{display:flex;align-items:center;gap:10px;}
+.brand img{width:46px;height:46px;border-radius:50%;background:#fff;padding:3px;}
+.brand b{display:block;font-size:19px;font-weight:900;line-height:1.2;}
+.brand span{font-size:12px;opacity:.8;font-weight:600;display:block;white-space:nowrap;}
+.ask-btn{flex-shrink:0;white-space:nowrap;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.3);color:#fff;border-radius:30px;padding:7px 12px;font-weight:800;font-size:13px;display:flex;align-items:center;gap:6px;}
+.ask-btn svg{width:15px;height:15px;}
+.hero h1{font-size:27px;line-height:1.45;font-weight:900;margin:22px 0 8px;}
+.hero h1 em{font-style:normal;color:var(--g300);}
+.hero p.lead{font-size:16.5px;opacity:.92;margin:0 0 16px;font-weight:600;}
+.hero p.lead b{color:var(--g300);}
+.trust{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px;}
+.trust div{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:10px 6px;text-align:center;font-size:13px;font-weight:700;line-height:1.45;}
+.trust div i{display:block;font-style:normal;font-size:21px;margin-bottom:2px;}
+.cta-main{width:100%;border:none;border-radius:14px;padding:16px;font-size:18px;font-weight:900;color:#fff;background:linear-gradient(135deg,var(--g500),var(--g700));box-shadow:0 10px 24px rgba(156,114,34,.4);display:flex;align-items:center;justify-content:center;gap:8px;}
+.cta-main:active{transform:scale(.98);}
+.live{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:12px;font-size:13.5px;font-weight:700;opacity:.92;}
+.live b{color:var(--g300);font-size:16px;font-weight:900;}
+
+/* ===== الخطوات ===== */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:-14px 0 0;position:relative;}
+.step{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:12px 8px;text-align:center;box-shadow:var(--sh1);}
+.step .n{width:30px;height:30px;margin:0 auto 6px;border-radius:50%;background:var(--m50);color:var(--m800);font-weight:900;display:flex;align-items:center;justify-content:center;border:1.5px solid var(--m100);}
+.step.pay .n{background:var(--green-bg);color:var(--green);border-color:#BFE3CD;}
+.step b{display:block;font-size:14px;color:var(--m900);line-height:1.4;}
+.step span{font-size:12.5px;color:var(--soft);line-height:1.45;display:block;margin-top:2px;}
+
+/* ===== شريط "اتغسلت مؤخرًا" ===== */
+.sec-title{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin:26px 0 10px;}
+.sec-title h2{font-size:19px;font-weight:900;color:var(--m900);margin:0;}
+.sec-title a,.sec-title button{font-size:13.5px;font-weight:800;color:var(--g700);background:none;border:none;padding:0;text-decoration:underline;}
+.proof-row{display:flex;gap:10px;overflow-x:auto;padding:2px 2px 10px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;}
+.proof{flex:0 0 250px;scroll-snap-align:start;background:var(--paper);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:var(--sh1);text-align:right;padding:0;}
+.proof .ba{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--line);}
+.proof .ba div{position:relative;aspect-ratio:1/1;background:var(--m50);}
+.proof .ba img{width:100%;height:100%;object-fit:cover;}
+.proof .ba span{position:absolute;bottom:6px;inset-inline-start:6px;font-size:11px;font-weight:800;padding:2px 8px;border-radius:20px;}
+.proof .ba .b span{background:var(--red-bg);color:var(--red);}
+.proof .ba .a span{background:var(--green-bg);color:var(--green);}
+.proof .t{padding:9px 11px 11px;}
+.proof .t b{display:block;font-size:14.5px;color:var(--m900);}
+.proof .t small{font-size:12.5px;color:var(--soft);}
+
+/* ===== الفلاتر ===== */
+.controls{position:sticky;top:0;z-index:40;background:rgba(250,247,241,.96);backdrop-filter:blur(8px);padding:10px 0 8px;margin:0 -16px;padding-inline:16px;border-bottom:1px solid transparent;}
+.controls.stuck{border-bottom-color:var(--line);box-shadow:0 6px 14px rgba(46,11,10,.05);}
+.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;}
+.tab{border:1.5px solid var(--line);background:var(--paper);border-radius:12px;padding:8px 4px;font-weight:800;font-size:13.5px;color:var(--soft);line-height:1.35;}
+.tab small{display:block;font-size:15px;font-weight:900;}
+.tab.on.need{background:var(--red);border-color:var(--red);color:#fff;}
+.tab.on.progress{background:var(--orange);border-color:var(--orange);color:#fff;}
+.tab.on.done{background:var(--green);border-color:var(--green);color:#fff;}
+.filters{display:flex;gap:6px;margin-top:8px;overflow-x:auto;padding-bottom:2px;-webkit-overflow-scrolling:touch;}
+.chip{flex:0 0 auto;border:1.5px solid var(--line);background:var(--paper);color:var(--soft);border-radius:30px;padding:6px 12px;font-weight:800;font-size:13px;white-space:nowrap;}
+.chip.on{background:var(--m800);border-color:var(--m800);color:#fff;}
+.chip.pick{border-color:var(--g500);color:var(--g700);background:var(--g100);}
+select.gov{flex:0 0 auto;border:1.5px solid var(--line);background:var(--paper);border-radius:30px;padding:6px 12px;font-family:inherit;font-weight:800;font-size:13px;color:var(--m800);}
+.list-hint{font-size:13px;color:var(--mute);font-weight:700;margin:10px 2px 4px;}
+
+/* ===== الكروت ===== */
+#cards{display:grid;gap:14px;padding:6px 0 10px;}
+@media(min-width:700px){#cards{grid-template-columns:1fr 1fr;}}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh2);display:flex;flex-direction:column;}
+.card.hl{outline:3px solid var(--g500);outline-offset:2px;}
+.thumb{position:relative;aspect-ratio:16/10;background:linear-gradient(135deg,var(--m50),var(--g100));overflow:hidden;}
+.thumb img{width:100%;height:100%;object-fit:cover;}
+.thumb .noimg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:44px;opacity:.5;}
+.thumb .cond{position:absolute;top:10px;inset-inline-start:10px;font-size:12.5px;font-weight:800;padding:4px 10px;border-radius:20px;background:rgba(255,255,255,.95);}
+.cond.red{color:var(--red);} .cond.orange{color:var(--orange);} .cond.green{color:var(--green);}
+.thumb .more{position:absolute;bottom:10px;inset-inline-end:10px;font-size:12.5px;font-weight:800;padding:4px 10px;border-radius:20px;background:rgba(29,38,34,.72);color:#fff;border:none;}
+.body{padding:12px 14px 14px;display:flex;flex-direction:column;gap:8px;flex:1;}
+.title{font-size:18px;font-weight:900;color:var(--m900);line-height:1.4;}
+.place{font-size:14px;color:var(--soft);font-weight:600;display:flex;align-items:center;gap:5px;}
+.place svg{width:14px;height:14px;flex-shrink:0;}
+.waiting{font-size:12.5px;font-weight:800;color:var(--orange);}
+.price{display:flex;align-items:center;justify-content:space-between;gap:8px;background:var(--g100);border:1px dashed var(--g500);border-radius:12px;padding:9px 12px;}
+.price b{font-size:21px;font-weight:900;color:var(--g700);}
+.price span{font-size:12px;font-weight:700;color:var(--soft);text-align:left;line-height:1.4;}
+.btn-donate{border:none;border-radius:13px;padding:14px;font-size:16.5px;font-weight:900;color:#fff;background:linear-gradient(135deg,var(--m700),var(--m900));box-shadow:0 8px 18px rgba(82,17,16,.28);display:flex;align-items:center;justify-content:center;gap:8px;}
+.btn-donate:active{transform:scale(.98);}
+.paylater{font-size:12.5px;color:var(--green);font-weight:800;text-align:center;margin-top:-2px;}
+.minor{display:flex;gap:6px;flex-wrap:wrap;}
+.minor button,.minor a{flex:1;min-width:92px;border:1px solid var(--line);background:var(--cream);color:var(--m800);border-radius:10px;padding:8px 6px;font-size:13px;font-weight:800;text-decoration:none;text-align:center;}
+.proof-link{border:none;background:var(--green-bg);color:var(--green);border-radius:10px;padding:8px 10px;font-weight:800;font-size:13px;text-align:right;}
+.donor{background:linear-gradient(160deg,var(--m50),var(--g100) 140%);border:1.5px solid var(--g300);border-radius:14px;padding:12px;text-align:center;}
+.donor b{display:block;font-size:16.5px;color:var(--m900);}
+.donor .mem{font-size:14px;color:var(--g700);font-weight:800;margin-top:3px;}
+.donor .dua{font-size:13px;color:var(--soft);margin-top:5px;font-style:italic;}
+.ba2{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
+.ba2 button{position:relative;border:none;padding:0;border-radius:12px;overflow:hidden;aspect-ratio:1/1;background:var(--m50);}
+.ba2 img{width:100%;height:100%;object-fit:cover;}
+.ba2 span{position:absolute;bottom:6px;inset-inline-start:6px;font-size:11.5px;font-weight:800;padding:2px 9px;border-radius:20px;}
+.ba2 .b span{background:var(--red-bg);color:var(--red);} .ba2 .a span{background:var(--green-bg);color:var(--green);}
+.btn-video{border:none;border-radius:12px;padding:11px;font-weight:900;font-size:15px;color:#fff;background:linear-gradient(135deg,#2F80ED,#1B5FC7);display:flex;align-items:center;justify-content:center;gap:7px;}
+.empty{text-align:center;color:var(--mute);font-weight:700;padding:34px 10px;background:var(--paper);border:1px dashed var(--line);border-radius:var(--r);}
+.empty button{margin-top:10px;border:none;background:var(--m800);color:#fff;border-radius:10px;padding:9px 16px;font-weight:800;}
+.sk{background:linear-gradient(90deg,var(--m50) 25%,var(--line) 37%,var(--m50) 63%);background-size:400% 100%;animation:sk 1.4s ease infinite;border-radius:10px;}
+@keyframes sk{0%{background-position:100% 50%}100%{background-position:0 50%}}
+.load-more{width:100%;border:1.5px solid var(--m800);background:var(--paper);color:var(--m800);border-radius:12px;padding:12px;font-weight:900;font-size:15px;margin:4px 0 8px;}
+
+/* ===== أسئلة ===== */
+.faq details{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:8px;}
+.faq summary{font-weight:800;color:var(--m900);cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:10px;}
+.faq summary::-webkit-details-marker{display:none;}
+.faq summary::after{content:'+';color:var(--g700);font-weight:900;font-size:18px;line-height:1;}
+.faq details[open] summary::after{content:'–';}
+.faq p{margin:8px 0 0;color:var(--soft);font-size:14.5px;}
+.banner{display:flex;gap:12px;align-items:center;flex-wrap:wrap;background:var(--paper);border:1.5px solid var(--line);border-radius:var(--r);padding:14px;margin-bottom:10px;}
+.banner .ic{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;background:var(--green-bg);flex-shrink:0;}
+.banner .tx{flex:1;min-width:190px;}
+.banner .tx b{display:block;color:var(--m900);font-size:15.5px;}
+.banner .tx span{font-size:13.5px;color:var(--soft);}
+.banner button{border:none;border-radius:11px;padding:10px 14px;font-weight:900;font-size:14px;color:#fff;background:var(--green);width:100%;}
+.banner.gold .ic{background:var(--g100);} .banner.gold button{background:var(--g700);}
+footer{text-align:center;color:var(--mute);font-size:13px;padding:18px 16px 110px;}
+footer b{color:var(--m800);}
+.fab{position:fixed;bottom:16px;inset-inline-end:16px;z-index:60;border:none;border-radius:40px;background:var(--wa);color:#fff;font-weight:900;font-size:14.5px;padding:12px 16px;display:flex;align-items:center;gap:7px;box-shadow:0 10px 24px rgba(37,211,102,.4);}
+.fab svg{width:18px;height:18px;}
+
+/* ===== النوافذ ===== */
+.ov{position:fixed;inset:0;z-index:100;background:rgba(20,8,7,.6);display:none;align-items:flex-end;justify-content:center;}
+.ov.show{display:flex;animation:fade .18s ease;}
+@media(min-width:640px){.ov{align-items:center;padding:16px;}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.sheet{position:relative;background:var(--paper);width:100%;max-width:520px;max-height:92vh;overflow-y:auto;border-radius:22px 22px 0 0;padding:20px 18px 24px;animation:up .22s ease;}
+@media(min-width:640px){.sheet{border-radius:22px;}}
+@keyframes up{from{transform:translateY(30px)}to{transform:none}}
+.x{position:absolute;top:12px;inset-inline-end:12px;width:34px;height:34px;border-radius:50%;border:none;background:var(--m50);color:var(--m800);font-size:20px;line-height:1;display:flex;align-items:center;justify-content:center;}
+.sheet h3{margin:0 0 4px;font-size:20px;font-weight:900;color:var(--m900);padding-inline-end:40px;}
+.sheet .sub{color:var(--soft);font-size:14px;margin:0 0 14px;}
+.msum{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--cream);border:1px solid var(--line);border-radius:14px;padding:10px 12px;margin-bottom:14px;}
+.msum b{display:block;color:var(--m900);font-size:15.5px;}
+.msum small{color:var(--soft);font-size:13px;}
+.msum .c{font-weight:900;color:var(--g700);font-size:17px;white-space:nowrap;}
+.progress{display:flex;gap:6px;margin-bottom:12px;}
+.progress i{flex:1;height:5px;border-radius:5px;background:var(--line);}
+.progress i.on{background:var(--g500);}
+.choice{width:100%;text-align:right;border:2px solid var(--line);background:var(--paper);border-radius:16px;padding:14px;margin-bottom:10px;display:flex;gap:12px;align-items:flex-start;}
+.choice:hover{border-color:var(--g500);}
+.choice .e{font-size:28px;line-height:1;}
+.choice b{display:block;font-size:16px;color:var(--m900);}
+.choice span{font-size:13.5px;color:var(--soft);}
+.choice .tag{display:inline-block;font-size:11.5px;font-weight:800;color:var(--g700);background:var(--g100);border-radius:20px;padding:1px 8px;margin-inline-start:6px;}
+label.l{display:block;font-weight:800;font-size:14.5px;color:var(--m900);margin:10px 0 4px;}
+label.l small{font-weight:600;color:var(--mute);}
+input.in{width:100%;padding:13px;border-radius:12px;border:1.5px solid var(--line);font-family:inherit;font-size:16.5px;background:var(--cream);}
+input.in:focus{outline:none;border-color:var(--m700);background:#fff;}
+input.in.err{border-color:var(--red);background:var(--red-bg);}
+.fhint{font-size:12.5px;color:var(--mute);margin-top:4px;}
+.preview{margin:14px 0 10px;background:linear-gradient(160deg,var(--m50),var(--g100));border:1.5px dashed var(--g500);border-radius:14px;padding:12px;text-align:center;}
+.preview small{display:block;font-size:12px;color:var(--soft);font-weight:700;margin-bottom:4px;}
+.preview b{font-size:15.5px;color:var(--m900);line-height:1.6;}
+.assure{list-style:none;margin:8px 0 14px;padding:0;}
+.assure li{font-size:13.5px;color:var(--soft);display:flex;gap:7px;margin:5px 0;}
+.assure li::before{content:'✓';color:var(--green);font-weight:900;}
+.primary{width:100%;border:none;border-radius:14px;padding:15px;font-size:17px;font-weight:900;color:#fff;background:linear-gradient(135deg,var(--g500),var(--g700));box-shadow:0 8px 18px rgba(156,114,34,.3);}
+.primary:disabled{opacity:.65;}
+.ghost{width:100%;border:none;background:none;color:var(--soft);font-weight:800;padding:10px;font-size:14.5px;}
+.err-box{background:var(--red-bg);color:var(--red);border-radius:10px;padding:9px 12px;font-weight:700;font-size:14px;margin:8px 0;display:none;}
+.ok-ic{width:66px;height:66px;margin:4px auto 10px;border-radius:50%;background:var(--green-bg);color:var(--green);display:flex;align-items:center;justify-content:center;font-size:34px;}
+.okname{background:linear-gradient(160deg,var(--m50),var(--g100));border:1.5px solid var(--g300);border-radius:16px;padding:14px;text-align:center;margin:10px 0;}
+.okname b{display:block;font-size:17px;color:var(--m900);line-height:1.6;}
+.okname small{display:block;color:var(--g700);font-weight:800;margin-top:4px;}
+.next{list-style:none;padding:0;margin:12px 0;counter-reset:n;}
+.next li{counter-increment:n;display:flex;gap:10px;align-items:flex-start;margin:8px 0;font-size:14.5px;color:var(--ink);}
+.next li::before{content:counter(n);flex-shrink:0;width:26px;height:26px;border-radius:50%;background:var(--m50);color:var(--m800);font-weight:900;display:flex;align-items:center;justify-content:center;font-size:13px;}
+.btn-wa{width:100%;border:none;border-radius:14px;padding:14px;font-size:16px;font-weight:900;color:#fff;background:var(--wa);display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:8px;}
+.btn-wa svg{width:19px;height:19px;}
+.btn-sec{width:100%;border:1.5px solid var(--m800);border-radius:14px;padding:12px;font-size:15px;font-weight:900;color:var(--m800);background:var(--paper);margin-bottom:8px;}
+.gtabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;}
+.gtabs button{flex:1;min-width:80px;border:none;border-radius:10px;padding:8px;font-weight:800;font-size:13.5px;background:var(--cream);color:var(--soft);}
+.gtabs button.on{background:var(--m800);color:#fff;}
+.ggrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;}
+.ggrid img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:12px;background:var(--m50);cursor:zoom-in;}
+.ggrid .one{grid-column:1/-1;}
+.ggrid .one img{aspect-ratio:auto;max-height:60vh;object-fit:contain;}
+.note{text-align:center;color:var(--mute);font-weight:700;padding:18px;}
+/* ★ نافذة الفيديو: إطار طولي (زي فيديو الموبايل) عشان ميبقاش شاشة سودا صغيرة */
+.vsheet{background:#000;width:100%;max-width:440px;border-radius:20px;overflow:hidden;position:relative;}
+.vframe{position:relative;width:100%;height:min(76vh,780px);background:#000;}
+.vframe iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+.vbar{display:flex;gap:8px;padding:10px;background:#111;}
+.vbar a,.vbar button{flex:1;border:none;border-radius:10px;padding:10px;font-weight:800;font-size:14px;text-align:center;text-decoration:none;}
+.vbar a{background:#fff;color:#111;} .vbar button{background:#333;color:#fff;}
+.vhint{color:#bbb;font-size:12.5px;text-align:center;padding:0 12px 10px;background:#111;}
+#lightbox{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;padding:14px;}
+#lightbox img{max-height:90vh;border-radius:10px;object-fit:contain;}
+.copyrow{display:flex;gap:8px;align-items:center;background:var(--green-bg);border:1.5px solid var(--green);border-radius:12px;padding:9px 12px;margin-bottom:8px;}
+.copyrow span{flex:1;direction:ltr;text-align:center;font-weight:900;word-break:break-all;}
+.copyrow button{border:none;background:var(--green);color:#fff;border-radius:8px;padding:6px 12px;font-weight:800;}
+.toast{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:300;background:var(--ink);color:#fff;border-radius:12px;padding:10px 16px;font-weight:800;font-size:14px;display:none;max-width:92vw;text-align:center;}
 </style>
 </head>
 <body>
-  <img src="logo.png" alt="وصلة خير">
-  <div>جارِ تحويلك لصفحة وصلة خير...</div>
-  <div style="margin-top:10px;font-size:13px;">
-    لو لم يتم تحويلك تلقائيًا،
-    <a href="https://script.google.com/macros/s/AKfycbxqpyF8uM5slLOtqB80jOrhg1d5sWhvQxZyoKvlzCKzAPhSAAhSaWoBrURP3f4pq3Hbkg/exec">اضغط هنا</a>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <img src="logo.png" alt="شعار وصلة خير" width="46" height="46">
+        <div><b>وصلة خير</b><span>من مؤسسة مكة لخدمات المساجد</span></div>
+      </div>
+      <button class="ask-btn" onclick="askQuestion('header')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.76.46 3.4 1.26 4.83L2 22l5.3-1.24A9.96 9.96 0 0012 22c5.52 0 10-4.48 10-10S17.52 2 12 2z"/></svg>عندك سؤال؟</button>
+    </div>
+
+    <h1>اغسل سجاد مسجد <em>باسمك أو باسم حبيبك</em>… ومتدفعش غير لما تشوف الصور</h1>
+    <p class="lead">اختار مسجد محتاج من القائمة، وفريق مكة يغسل ويعقّم سجاده ويبعتلك الصور والفيديو. <b>صدقة جارية</b> بتفضل في ميزانك مع كل سجدة.</p>
+    <div class="trust">
+      <div><i>🔒</i>مفيش دفع مقدم</div>
+      <div><i>📸</i>صور وفيديو لكل مسجد</div>
+      <div><i>✅</i>سعر نهائي ثابت</div>
+    </div>
+    <button class="cta-main" onclick="goToList('hero')">اختار مسجد دلوقتي
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M6 9l6 6 6-6"/></svg></button>
+    <div class="live" id="live">
+      <span><b id="lvDone">–</b> مسجد اتغسل</span>
+      <span><b id="lvProg">–</b> جاري تنفيذه</span>
+      <span><b id="lvNeed">–</b> مستني متكفل</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="steps" aria-label="الفكرة في 3 خطوات">
+    <div class="step"><div class="n">1</div><b>اختار مسجد</b><span>على قد إمكانياتك</span></div>
+    <div class="step"><div class="n">2</div><b>اكتب باسم مين</b><span>دقيقة واحدة بس</span></div>
+    <div class="step pay"><div class="n">3</div><b>استلم الصور وادفع</b><span>بعد التنفيذ مش قبله</span></div>
   </div>
 
-  <script>
-    // تحويل للزوار الحقيقيين فقط (متصفح شغال JS)، وليس لروبوتات معاينة الروابط
-    window.location.replace("https://script.google.com/macros/s/AKfycbxqpyF8uM5slLOtqB80jOrhg1d5sWhvQxZyoKvlzCKzAPhSAAhSaWoBrURP3f4pq3Hbkg/exec");
-  </script>
+  <section id="proofSec" style="display:none">
+    <div class="sec-title"><h2>اتغسلت مؤخرًا ✨</h2><button onclick="setTab('done','proof_more');goToList('proof_more')">شوف الكل</button></div>
+    <div class="proof-row" id="proofRow"></div>
+  </section>
+
+  <section id="listSec">
+    <div class="sec-title"><h2 id="listTitle">مساجد مستنية حد زيك</h2></div>
+    <div class="controls" id="controls">
+      <div class="tabs" role="tablist">
+        <button class="tab need on" id="tab-need" onclick="setTab('need','tab')">محتاجة متكفل<small id="cNeed">0</small></button>
+        <button class="tab progress" id="tab-progress" onclick="setTab('progress','tab')">جاري التنفيذ<small id="cProg">0</small></button>
+        <button class="tab done" id="tab-done" onclick="setTab('done','tab')">اتغسلت ✓<small id="cDone">0</small></button>
+      </div>
+      <div class="filters" id="filters"></div>
+    </div>
+    <div class="list-hint" id="listHint"></div>
+    <div id="cards"></div>
+  </section>
+
+  <section class="faq">
+    <div class="sec-title"><h2>أسئلة بتيجي في بال الناس</h2></div>
+    <details data-q="pay"><summary>أدفع امتى وإزاي؟</summary><p>بعد ما المسجد يتغسل وتستلم الصور والفيديو كاملين. ساعتها تحوّل التكلفة فودافون كاش أو إنستاباي، وتبعتلنا صورة التحويل. مفيش أي دفع قبل التنفيذ.</p></details>
+    <details data-q="bigger"><summary>لو المسجد طلع أكبر من المكتوب؟</summary><p>السعر اللي قدامك نهائي وشامل. مهما كانت المساحة الفعلية، مش هيتطلب منك أي مبلغ زيادة.</p></details>
+    <details data-q="get"><summary>هيوصلني إيه بالظبط؟</summary><p>صور المسجد قبل وأثناء وبعد الغسيل، وفيديو توثيق للتنفيذ، والمسجد بيتسجل في الموقع في تاب "اتغسلت" باسمك أو باسم حبيبك.</p></details>
+    <details data-q="abroad"><summary>أنا برّه مصر، ينفع أتكفل؟</summary><p>أيوه طبعًا. اكتب رقمك بكود الدولة، ونتواصل معاك على واتساب، والدفع بيكون بفودافون كاش أو إنستاباي زي باقي المتكفلين.</p></details>
+    <details data-q="anon"><summary>ينفع اسمي ميظهرش؟</summary><p>أيوه. لو الصدقة عن روح حد، يكفي تكتب اسم المتوفى بس، واسمك هيظهر "فاعل خير". ورقمك عمره ما بيتنشر في أي مكان.</p></details>
+    <details data-q="who"><summary>إنتو جهة تبرعات؟</summary><p>لأ. إحنا مؤسسة خدمات متخصصة في غسيل وتعقيم سجاد المساجد، ومش بناخد أي مبلغ إلا مقابل غسيل فعلي اتنفذ واتوثق.</p></details>
+  </section>
+
+  <section style="margin-top:20px">
+    <div class="banner">
+      <div class="ic">🕌</div>
+      <div class="tx"><b>تعرف مسجد محتاج غسيل سجاد؟</b><span>دلّنا عليه، وفريقنا يسجله ويضيفه للقائمة.</span></div>
+      <button onclick="registerMosque()">سجّل مسجد على واتساب</button>
+    </div>
+    <div class="banner gold">
+      <div class="ic">🤲</div>
+      <div class="tx"><b>حابب تتبرع بأي مبلغ، حتى لو بسيط؟</b><span>هنرشّح لك مؤسسة موثوقة تقدر تتبرع من خلالها مباشرة لخدمة المساجد.</span></div>
+      <button onclick="openSmallDonation()">التفاصيل</button>
+    </div>
+  </section>
+</main>
+
+<footer>وصلة خير — مبادرة تحت إشراف <b>مؤسسة مكة لخدمات المساجد</b><br>خدمة تنفيذ موثّقة ومدفوعة بعد التنفيذ، مش جهة جمع تبرعات</footer>
+
+<button class="fab" onclick="askQuestion('fab')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.76.46 3.4 1.26 4.83L2 22l5.3-1.24A9.96 9.96 0 0012 22c5.52 0 10-4.48 10-10S17.52 2 12 2z"/></svg>اسألنا على واتساب</button>
+
+<!-- ===== نافذة التكفل (خطوتين) ===== -->
+<div class="ov" id="donorOv" onclick="if(event.target===this)closeDonor('backdrop')">
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="dTitle">
+    <button class="x" onclick="closeDonor('x')" aria-label="إغلاق">×</button>
+    <div id="dStep1">
+      <div class="progress"><i class="on"></i><i></i></div>
+      <h3 id="dTitle">الصدقة دي باسم مين؟</h3>
+      <p class="sub">اختار، وبعدها خطوة واحدة وتخلص.</p>
+      <div class="msum" id="dSum1"></div>
+      <button class="choice" onclick="chooseType('memorial')"><span class="e">🕊</span><span><b>عن روح حد غالي عليّا <span class="tag">الأكثر اختيارًا</span></b><span>صدقة جارية تفضل في ميزانه مع كل صلاة على السجاد ده</span></span></button>
+      <button class="choice" onclick="chooseType('self')"><span class="e">🤲</span><span><b>عن نفسي</b><span>صدقة باسمك، أو باسم "فاعل خير" لو حابب</span></span></button>
+    </div>
+    <div id="dStep2" style="display:none">
+      <div class="progress"><i class="on"></i><i class="on"></i></div>
+      <h3>آخر خطوة 🌿</h3>
+      <div class="msum" id="dSum2"></div>
+      <div id="memWrap">
+        <label class="l" for="fDeceased">اسم المتوفى</label>
+        <input class="in" id="fDeceased" autocomplete="off" placeholder="مثال: الحاج محمد أحمد" oninput="updatePreview()" onfocus="fieldFocus('deceased')">
+      </div>
+      <label class="l" for="fName">اسمك <small id="nameHint">(اختياري - لو سبته فاضي هيتكتب "فاعل خير")</small></label>
+      <input class="in" id="fName" autocomplete="name" placeholder="اسمك الكريم" oninput="updatePreview()" onfocus="fieldFocus('name')">
+      <label class="l" for="fPhone">رقم الواتساب</label>
+      <input class="in" id="fPhone" type="tel" inputmode="tel" autocomplete="tel" dir="ltr" placeholder="01xxxxxxxxx" onfocus="fieldFocus('phone')" oninput="this.classList.remove('err')">
+      <div class="fhint">لو في مصر: 11 رقم يبدأ بـ 01 · لو برّه مصر: اكتبه بكود الدولة (مثال: +9665xxxxxxxx). رقمك للتواصل بس ومش بيتنشر.</div>
+      <div class="preview"><small>هيتكتب في سجل المسجد:</small><b id="pvText"></b></div>
+      <ul class="assure">
+        <li>مش هتدفع حاجة دلوقتي</li>
+        <li>فريقنا هيكلمك على واتساب للتأكيد</li>
+        <li>تستلم الصور والفيديو، وبعدها تحوّل التكلفة</li>
+      </ul>
+      <div class="err-box" id="dErr"></div>
+      <button class="primary" id="dSubmit" onclick="submitDonation()">تأكيد التكفل بالمسجد ده</button>
+      <button class="ghost" onclick="backToStep1()">رجوع</button>
+    </div>
+    <div id="dDone" style="display:none;text-align:center">
+      <div class="ok-ic">✓</div>
+      <h3 style="padding:0">تم بحمد الله 🤲</h3>
+      <div class="okname"><b id="okLine"></b><small id="okCode"></small></div>
+      <div style="text-align:right">
+        <b style="color:var(--m900)">إيه اللي هيحصل دلوقتي؟</b>
+        <ol class="next">
+          <li>فريقنا هيكلمك على واتساب في أقرب وقت للتأكيد</li>
+          <li>نحدد ميعاد الغسيل ونصوّر كل خطوة</li>
+          <li>تستلم الصور والفيديو، وبعدها بس تحوّل التكلفة</li>
+        </ol>
+      </div>
+      <button class="btn-wa" onclick="sendWaConfirm()"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.76.46 3.4 1.26 4.83L2 22l5.3-1.24A9.96 9.96 0 0012 22c5.52 0 10-4.48 10-10S17.52 2 12 2z"/></svg>ابعتلنا التأكيد على واتساب</button>
+      <button class="btn-sec" onclick="joinGroup('success')">انضم لجروب وصلة خير (مساجد جديدة كل فترة)</button>
+      <button class="btn-sec" onclick="shareSite('success')">قول لحد بيحب الخير 🤍</button>
+      <button class="ghost" onclick="closeDonor('done')">رجوع للمساجد</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== الصور ===== -->
+<div class="ov" id="photosOv" onclick="if(event.target===this)closeOv('photosOv')">
+  <div class="sheet" role="dialog" aria-modal="true">
+    <button class="x" onclick="closeOv('photosOv')" aria-label="إغلاق">×</button>
+    <h3 id="phTitle">صور المسجد</h3>
+    <p class="sub" id="phSub"></p>
+    <div class="gtabs" id="phTabs"></div>
+    <div class="ggrid" id="phGrid"></div>
+    <div id="phExtra"></div>
+  </div>
+</div>
+
+<!-- ===== الفيديو ===== -->
+<div class="ov" id="videoOv" onclick="if(event.target===this)closeVideo()">
+  <div class="vsheet" role="dialog" aria-modal="true">
+    <div class="vframe" id="vFrame"></div>
+    <div class="vhint">لو الفيديو ظهر أسود، دوس تشغيل في النص أو افتحه في جوجل درايف</div>
+    <div class="vbar"><a id="vOpen" href="#" target="_blank" rel="noopener" onclick="track('video_open_drive',{mosque_code:currentVideoCode})">افتح في جوجل درايف</a><button onclick="closeVideo()">إغلاق</button></div>
+  </div>
+</div>
+
+<!-- ===== تبرع بأي مبلغ ===== -->
+<div class="ov" id="smallOv" onclick="if(event.target===this)closeOv('smallOv')">
+  <div class="sheet" role="dialog" aria-modal="true">
+    <button class="x" onclick="closeOv('smallOv')" aria-label="إغلاق">×</button>
+    <h3>🤲 تبرع بأي مبلغ</h3>
+    <p class="sub">ربنا يجزي حضرتك كل خير على رغبتك في خدمة بيوت الله ❤️</p>
+    <p style="font-size:14.5px">للتوضيح: <b>مؤسسة مكة لخدمات المساجد ليست جهة جمع تبرعات</b>، وإنما دورها غسيل وتعقيم سجاد المساجد.</p>
+    <p style="font-size:14.5px">💚 لذلك اخترنا توجيه الراغبين في التبرع إلى <b>مؤسسة مرسال الخير</b>، وهي مشهرة برقم <b>2261 لسنة 2026</b> وتخضع لإشراف <b>وزارة التضامن الاجتماعي</b>، وتُوجَّه التبرعات من خلالها لخدمة وصيانة المساجد.</p>
+    <small style="font-weight:800;color:var(--green)">🏦 مؤسسة مرسال الخير - رقم الحساب (بنك مصر)</small>
+    <div class="copyrow"><span id="acc1">30100010000022969</span><button onclick="copyText('acc1')">نسخ</button></div>
+    <small style="font-weight:800;color:var(--green)">🌐 IBAN</small>
+    <div class="copyrow"><span id="acc2">EG3900020301030100001000022969</span><button onclick="copyText('acc2')">نسخ</button></div>
+    <small style="font-weight:800;color:var(--green)">📱 فودافون كاش (للتسهيل فقط)</small>
+    <div class="copyrow"><span id="acc3">01040138529</span><button onclick="copyText('acc3')">نسخ</button></div>
+    <p style="font-size:13.5px;background:var(--g100);color:var(--g700);border-radius:10px;padding:9px 12px;font-weight:700">📸 عند التحويل بفودافون كاش، ابعت اسكرين التحويل + الاسم الثنائي على الرقم ده، ليتم توريد المبلغ كاملًا للمؤسسة وإرسال إيصال التبرع الصادر منها.</p>
+    <p style="font-size:14.5px;text-align:center">🤲 ربنا يتقبل منك ويجعله في ميزان حسناتك ❤️</p>
+  </div>
+</div>
+
+<div id="lightbox" onclick="this.style.display='none'"><img id="lbImg" alt=""></div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============================================================
+   ★ تتبّع رحلة الزائر - كل حدث بيتسجل في شيت AnalyticsLog ومعاه:
+   رقم الزائر (ثابت لنفس الشخص لو رجع تاني)، رقم الجلسة (الزيارة دي)،
+   ومصدره (الحملة/الإعلان من روابط utm). كده تقدر تتبع أي شخص من أول
+   ما دخل من الإعلان لحد ما اتكفل، وتعرف وقف فين بالظبط.
+   ============================================================ */
+const T0 = Date.now();
+function safeGet(store, k){ try{ return window[store].getItem(k); }catch(e){ return null; } }
+function safeSet(store, k, v){ try{ window[store].setItem(k, v); }catch(e){} }
+function rid(p){ return p + Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
+const QS = new URLSearchParams(location.search);
+const VISITOR_ID = safeGet('localStorage', 'wk_vid') || (function(){ const v = rid('V'); safeSet('localStorage', 'wk_vid', v); return v; })();
+const SESSION_ID = rid('S');
+const VISIT_NO = (parseInt(safeGet('localStorage', 'wk_visits') || '0', 10) || 0) + 1;
+safeSet('localStorage', 'wk_visits', String(VISIT_NO));
+// ★ مصدر الزيارة: بيتحفظ أول مرة في الجلسة عشان ميضيعش لو الزائر غيّر الرابط
+const UTM = (function(){
+  const keys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+  const saved = safeGet('sessionStorage', 'wk_utm');
+  const now = {};
+  keys.forEach(k => { if (QS.get(k)) now[k] = QS.get(k).slice(0, 120); });
+  if (QS.get('fbclid')) now.fbclid = '1';
+  if (Object.keys(now).length) { safeSet('sessionStorage', 'wk_utm', JSON.stringify(now)); return now; }
+  try { return saved ? JSON.parse(saved) : {}; } catch(e) { return {}; }
+})();
+const IS_MOBILE = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent) || window.innerWidth < 700;
+const IN_APP = /FBAN|FBAV|Instagram|FB_IAB/i.test(navigator.userAgent) ? 'facebook_app' : '';
+let eventQueue = [], eventsCount = 0, lastEvent = '', maxScroll = 0, openedForm = false;
+
+function track(name, params){
+  const p = Object.assign({
+    session_id: SESSION_ID, visitor_id: VISITOR_ID, visit_no: VISIT_NO,
+    sec: Math.round((Date.now() - T0) / 1000)
+  }, UTM, params || {});
+  eventsCount++; lastEvent = name;
+  eventQueue.push({ name: name, params: p });
+  try { if (typeof gtag === 'function') gtag('event', name, params || {}); } catch(e){}
+  if (eventQueue.length >= 12) flushEvents();
+}
+function flushEvents(useBeacon){
+  if (!eventQueue.length) return;
+  const batch = eventQueue.splice(0, 40);
+  const body = JSON.stringify({ action: 'log', events: batch });
+  try {
+    if (useBeacon && navigator.sendBeacon) { navigator.sendBeacon(API_URL, new Blob([body], { type: 'text/plain' })); return; }
+    fetch(API_URL, { method: 'POST', body: body, keepalive: true, mode: 'no-cors' }).catch(function(){});
+  } catch(e){}
+}
+setInterval(function(){ flushEvents(false); }, 6000);
+function pixel(ev, data){ try { if (META_PIXEL_ID && window.fbq) fbq('track', ev, data || {}); } catch(e){} }
+
+track('page_view', {
+  referrer: (document.referrer || '(direct)').slice(0, 150), is_mobile: IS_MOBILE, in_app: IN_APP,
+  viewport_width: window.innerWidth, viewport_height: window.innerHeight, landing: location.pathname + location.search.slice(0, 120)
+});
+window.addEventListener('error', function(e){
+  if ((e.message || '') === 'Script error.' && !e.filename) return;
+  track('js_error', { message: (e.message || '').slice(0, 160), line: e.lineno || 0 });
+});
+// ★ عمق التمرير: 25 / 50 / 75 / 100%
+const scrollMarks = [25, 50, 75, 100];
+window.addEventListener('scroll', function(){
+  const h = document.documentElement.scrollHeight - window.innerHeight;
+  const pct = h > 0 ? Math.round(window.scrollY / h * 100) : 100;
+  if (pct > maxScroll) maxScroll = pct;
+  while (scrollMarks.length && pct >= scrollMarks[0]) track('scroll_depth', { pct: scrollMarks.shift() });
+  document.getElementById('controls').classList.toggle('stuck', document.getElementById('controls').getBoundingClientRect().top <= 0);
+}, { passive: true });
+let exitSent = false;
+document.addEventListener('visibilitychange', function(){
+  if (document.visibilityState === 'hidden' && !exitSent) {
+    exitSent = true;
+    track('page_exit', { seconds: Math.round((Date.now() - T0) / 1000), max_scroll: maxScroll, last_event: lastEvent, events: eventsCount, opened_form: openedForm, tab: currentTab });
+    flushEvents(true);
+  } else if (document.visibilityState === 'visible') { exitSent = false; track('page_return', {}); }
+});
+
+/* ============================================================
+   ★ البيانات
+   ============================================================ */
+let mosques = [], config = { adminWhatsapp: '201067338357', groupLink: '', statusNeed: 'محتاج متكفل', statusInProgress: 'تم التكفل - جاري التنفيذ', statusDone: 'تم التنفيذ' };
+let currentTab = 'need', budget = 'all', gov = QS.get('gov') || '', shown = 12, selected = null, donationType = '', lastResult = null, currentVideoCode = '';
+const DECEASED_PREFIX = 'المغفور له/لها بإذن الله';
+
+function statusKey(m){
+  if (m.status === config.statusDone) return 'done';
+  if (m.status === config.statusInProgress) return 'progress';
+  return 'need';
+}
+function driveId(u){ const m = (u || '').toString().match(/[-\w]{25,}/); return m ? m[0] : ''; }
+function thumb(u, w){ const id = driveId(u); return id ? ('https://drive.google.com/thumbnail?id=' + id + '&sz=w' + (w || 700)) : ''; }
+function esc(s){ return (s == null ? '' : String(s)).replace(/[&<>"']/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c])); }
+function money(n){ const v = Number(n) || 0; return v ? v.toLocaleString('en-US') : '-'; }
+function donorName(m){ return (m.donorName && m.donorName !== '.') ? m.donorName : 'فاعل خير'; }
+function condClass(c){ c = c || ''; return c.includes('عاجل') ? 'red' : (c.includes('متوسط') ? 'orange' : (c.includes('دوري') ? 'green' : '')); }
+function urgency(c){ c = c || ''; return c.includes('عاجل') ? 0 : (c.includes('متوسط') ? 1 : (c.includes('دوري') ? 2 : 3)); }
+function parseDate(str){
+  if (!str) return 0;
+  const p = String(str).trim().split(' '), d = (p[0] || '').split('/');
+  if (d.length !== 3) return 0;
+  const t = (p[1] || '0:0').split(':');
+  const x = new Date(+d[0], +d[1] - 1, +d[2], +t[0] || 0, +t[1] || 0);
+  return isNaN(x) ? 0 : x.getTime();
+}
+function daysWaiting(m){
+  const t = parseDate(m.registeredAt); if (!t) return '';
+  const d = Math.max(0, Math.floor((Date.now() - t) / 864e5));
+  if (d <= 0) return 'اتسجل النهارده';
+  if (d === 1) return 'مستني متكفل من يوم';
+  if (d === 2) return 'مستني متكفل من يومين';
+  return 'مستني متكفل من ' + d + (d <= 10 ? ' أيام' : ' يوم');
+}
+
+function loadData(){
+  const t1 = Date.now();
+  // ★ عرض فوري من آخر نسخة محفوظة على الجهاز (لو موجودة) لحد ما الجديد يوصل
+  const cached = safeGet('localStorage', 'wk_cache');
+  if (cached) { try { const c = JSON.parse(cached); if (c && c.data && (Date.now() - c.t) < 864e5) { applyData(c.data, c.config, true); } } catch(e){} }
+  else renderSkeleton();
+  fetch(API_URL + '?api=mosques&t=' + Math.floor(Date.now() / 60000))
+    .then(r => r.json())
+    .then(res => {
+      if (!res || res.error || !res.data) throw new Error((res && res.error) || 'no data');
+      safeSet('localStorage', 'wk_cache', JSON.stringify({ t: Date.now(), data: res.data, config: res.config }));
+      applyData(res.data, res.config, false);
+      track('data_loaded', { ms: Date.now() - t1, need: countOf('need'), progress: countOf('progress'), done: countOf('done'), had_cache: !!cached });
+    })
+    .catch(err => {
+      track('data_error', { ms: Date.now() - t1, message: String(err && err.message || err).slice(0, 120) });
+      if (!mosques.length) document.getElementById('cards').innerHTML = '<div class="empty">تعذر تحميل المساجد دلوقتي.<br><button onclick="loadData()">حاول تاني</button></div>';
+    });
+}
+function countOf(k){ return mosques.filter(m => statusKey(m) === k).length; }
+function applyData(data, cfg, fromCache){
+  if (cfg) config = Object.assign({}, config, cfg);
+  mosques = data || [];
+  document.getElementById('lvDone').textContent = countOf('done');
+  document.getElementById('lvProg').textContent = countOf('progress');
+  document.getElementById('lvNeed').textContent = countOf('need');
+  document.getElementById('cNeed').textContent = countOf('need');
+  document.getElementById('cProg').textContent = countOf('progress');
+  document.getElementById('cDone').textContent = countOf('done');
+  renderProof();
+  renderFilters();
+  renderCards();
+}
+function renderSkeleton(){
+  let h = '';
+  for (let i = 0; i < 3; i++) h += '<div class="card"><div class="thumb sk"></div><div class="body"><div class="sk" style="height:20px;width:60%"></div><div class="sk" style="height:14px;width:80%"></div><div class="sk" style="height:44px"></div><div class="sk" style="height:48px"></div></div></div>';
+  document.getElementById('cards').innerHTML = h;
+}
+
+/* ===== شريط اتغسلت مؤخرًا ===== */
+function doneSorted(){ return mosques.filter(m => statusKey(m) === 'done').sort((a, b) => (parseDate(b.executionDate) - parseDate(a.executionDate)) || (b.rowIndex - a.rowIndex)); }
+function renderProof(){
+  const list = doneSorted().filter(m => m.coverPhoto && m.afterPhoto).slice(0, 8);
+  const sec = document.getElementById('proofSec');
+  if (!list.length) { sec.style.display = 'none'; return; }
+  sec.style.display = 'block';
+  document.getElementById('proofRow').innerHTML = list.map(m => `
+    <button class="proof" onclick="openPhotos(${m.rowIndex},'compare','proof_strip')">
+      <div class="ba"><div class="b"><img loading="lazy" src="${thumb(m.coverPhoto, 400)}" alt=""><span>قبل</span></div><div class="a"><img loading="lazy" src="${thumb(m.afterPhoto, 400)}" alt=""><span>بعد</span></div></div>
+      <div class="t"><b>مسجد ${esc(m.mosqueName)}</b><small>${esc(m.governorate)} · بتكفل ${esc(donorName(m))}</small></div>
+    </button>`).join('');
+}
+
+/* ===== الفلاتر ===== */
+const BUDGETS = [
+  { k: 'all', label: 'كل الأسعار', test: () => true },
+  { k: 'b1', label: 'أقل من 1,000', test: c => c < 1000 },
+  { k: 'b2', label: '1,000 – 2,000', test: c => c >= 1000 && c < 2000 },
+  { k: 'b3', label: '2,000 – 3,000', test: c => c >= 2000 && c < 3000 },
+  { k: 'b4', label: '3,000 وأكتر', test: c => c >= 3000 }
+];
+function renderFilters(){
+  const base = mosques.filter(m => statusKey(m) === currentTab);
+  const govs = [...new Set(base.map(m => m.governorate).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'ar'));
+  if (gov && govs.indexOf(gov) === -1) govs.unshift(gov);
+  let h = '';
+  if (currentTab === 'need') {
+    h += '<button class="chip pick" onclick="pickForMe()">✨ اختارلي أنا</button>';
+    BUDGETS.forEach(b => {
+      const n = b.k === 'all' ? base.length : base.filter(m => b.test(Number(m.cost) || 0)).length;
+      if (b.k !== 'all' && !n) return;
+      h += `<button class="chip ${budget === b.k ? 'on' : ''}" onclick="setBudget('${b.k}')">${b.label}</button>`;
+    });
+  }
+  h += '<select class="gov" aria-label="المحافظة" onchange="setGov(this.value)"><option value="">📍 كل المحافظات</option>' + govs.map(g => `<option value="${esc(g)}" ${g === gov ? 'selected' : ''}>${esc(g)}</option>`).join('') + '</select>';
+  document.getElementById('filters').innerHTML = h;
+}
+function setTab(k, from){
+  if (currentTab === k && from === 'tab') return;
+  currentTab = k; shown = 12; budget = 'all';
+  ['need', 'progress', 'done'].forEach(t => document.getElementById('tab-' + t).classList.toggle('on', t === k));
+  document.getElementById('listTitle').textContent = k === 'need' ? 'مساجد مستنية حد زيك' : (k === 'progress' ? 'مساجد اتكتبت بأسماء أصحابها وجاري تنفيذها' : 'مساجد اتغسلت فعلًا – قبل وبعد');
+  track('view_tab', { tab: k, from: from || '' });
+  renderFilters(); renderCards();
+}
+function setBudget(k){ budget = k; shown = 12; track('filter_budget', { range: k }); renderFilters(); renderCards(); }
+function setGov(g){ gov = g; shown = 12; track('filter_gov', { gov: g || '(all)', tab: currentTab }); renderFilters(); renderCards(); }
+function goToList(from){
+  track('cta_click', { from: from });
+  document.getElementById('listSec').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function filteredList(){
+  let list = mosques.filter(m => statusKey(m) === currentTab);
+  if (gov) list = list.filter(m => m.governorate === gov);
+  if (currentTab === 'need') {
+    const b = BUDGETS.find(x => x.k === budget) || BUDGETS[0];
+    list = list.filter(m => b.test(Number(m.cost) || 0));
+    list.sort((a, b2) => urgency(a.carpetCondition) - urgency(b2.carpetCondition) || ((Number(a.cost) || 0) - (Number(b2.cost) || 0)));
+  } else if (currentTab === 'done') {
+    list.sort((a, b2) => (parseDate(b2.executionDate) - parseDate(a.executionDate)) || (b2.rowIndex - a.rowIndex));
+  } else {
+    list.sort((a, b2) => (parseDate(b2.sponsoredAt) - parseDate(a.sponsoredAt)) || (b2.rowIndex - a.rowIndex));
+  }
+  return list;
+}
+
+/* ===== الكروت ===== */
+function renderCards(){
+  const list = filteredList();
+  const hint = document.getElementById('listHint');
+  hint.textContent = currentTab === 'need'
+    ? (list.length ? (list.length + ' مسجد · مرتبين من الأكثر احتياجًا') : '')
+    : (list.length ? (list.length + ' مسجد') : '');
+  const box = document.getElementById('cards');
+  if (!list.length) {
+    box.innerHTML = '<div class="empty">' + (currentTab === 'need' ? 'مفيش مساجد بالفلتر ده دلوقتي.' : 'لسه مفيش مساجد هنا بالفلتر ده.') +
+      (gov || budget !== 'all' ? '<br><button onclick="gov=\'\';budget=\'all\';renderFilters();renderCards()">اعرض الكل</button>' : '') + '</div>';
+    return;
+  }
+  const slice = list.slice(0, shown);
+  box.innerHTML = slice.map((m, i) => currentTab === 'done' ? doneCard(m) : (currentTab === 'progress' ? progressCard(m) : needCard(m, i))).join('') +
+    (list.length > shown ? `<button class="load-more" onclick="shown+=12;track('load_more',{tab:currentTab,shown:shown});renderCards()">اعرض ${Math.min(12, list.length - shown)} مساجد كمان</button>` : '');
+}
+const PIN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 6-9 12-9 12S3 16 3 10a9 9 0 1118 0z"/><circle cx="12" cy="10" r="3"/></svg>';
+const HEART = '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-6.7-4.3-9.3-8.2C.6 9.6 1.7 6 5 5c1.9-.6 3.7.2 5 1.9C11.3 5.2 13.1 4.4 15 5c3.3 1 4.4 4.6 2.3 7.8C18.7 16.7 12 21 12 21z"/></svg>';
+function needCard(m, i){
+  const img = m.carpetPhoto || m.coverPhoto;
+  const photoCount = Number(m.beforePhotosCount) || 0;
+  const proof = doneSorted().find(x => x.governorate === m.governorate && x.coverPhoto && x.afterPhoto);
+  return `<article class="card" id="card-${m.rowIndex}">
+    <div class="thumb">${img ? `<img loading="${i < 2 ? 'eager' : 'lazy'}" src="${thumb(img)}" alt="سجاد مسجد ${esc(m.mosqueName)}">` : '<div class="noimg">🕌</div>'}
+      ${m.carpetCondition ? `<span class="cond ${condClass(m.carpetCondition)}">${esc(m.carpetCondition)}</span>` : ''}
+      ${photoCount ? `<button class="more" onclick="openPhotos(${m.rowIndex},'before','card_thumb')">📷 ${photoCount} صور</button>` : ''}</div>
+    <div class="body">
+      <div class="title">مسجد ${esc(m.mosqueName)}</div>
+      <div class="place">${PIN}${esc(m.governorate)} - ${esc(m.district)}${m.address ? ' - ' + esc(m.address) : ''}</div>
+      ${daysWaiting(m) ? `<div class="waiting">⏳ ${daysWaiting(m)}</div>` : ''}
+      <div class="price"><b>${money(m.cost)} جنيه</b><span>سعر نهائي وشامل<br>مفيش أي زيادة</span></div>
+      <button class="btn-donate" onclick="openDonor(${m.rowIndex},${i + 1})">${HEART} أتكفل بالمسجد ده</button>
+      <div class="paylater">🔒 الدفع بعد ما تستلم الصور والفيديو</div>
+      <div class="minor">
+        ${photoCount ? `<button onclick="openPhotos(${m.rowIndex},'before','card')">📷 صور المسجد</button>` : ''}
+        ${m.location ? `<a href="${esc(m.location)}" target="_blank" rel="noopener" onclick="track('view_location',{mosque_code:'${esc(m.requestCode)}'})">📍 اللوكيشن</a>` : ''}
+        <button onclick="openDetails(${m.rowIndex})">ℹ️ تفاصيل</button>
+      </div>
+      ${proof ? `<button class="proof-link" onclick="openPhotos(${proof.rowIndex},'compare','card_proof',${m.rowIndex})">✅ شوف مسجد اتغسل في ${esc(m.governorate)} قبل وبعد ←</button>` : ''}
+    </div></article>`;
+}
+function progressCard(m){
+  return `<article class="card"><div class="body">
+    <div class="title">مسجد ${esc(m.mosqueName)}</div>
+    <div class="place">${PIN}${esc(m.governorate)} - ${esc(m.district)}</div>
+    <div class="donor"><b>🕌 اتكتب باسم: ${esc(donorName(m))}</b>
+      ${m.deceasedName ? `<div class="mem">صدقة جارية عن روح ${DECEASED_PREFIX} ${esc(m.deceasedName)}</div>` : ''}
+      <div class="dua">جاري التنفيذ، والصور والفيديو هتوصل لصاحب الصدقة أول بأول</div></div>
+  </div></article>`;
+}
+function doneCard(m){
+  return `<article class="card"><div class="body">
+    <div class="title">مسجد ${esc(m.mosqueName)} <span style="font-size:13px;color:var(--green)">✓ اتغسل</span></div>
+    <div class="place">${PIN}${esc(m.governorate)} - ${esc(m.district)}</div>
+    ${m.coverPhoto && m.afterPhoto ? `<div class="ba2"><button class="b" onclick="openPhotos(${m.rowIndex},'before','done_card')"><img loading="lazy" src="${thumb(m.coverPhoto, 500)}" alt=""><span>قبل</span></button><button class="a" onclick="openPhotos(${m.rowIndex},'after','done_card')"><img loading="lazy" src="${thumb(m.afterPhoto, 500)}" alt=""><span>بعد</span></button></div>` : ''}
+    <div class="donor"><b>${esc(donorName(m))}</b>
+      ${m.deceasedName ? `<div class="mem">✨ صدقة جارية عن روح ${DECEASED_PREFIX} ${esc(m.deceasedName)}</div>` : ''}
+      <div class="dua">تقبل الله منه، وجعلها في ميزان حسناته صدقة جارية ما دام المسجد قائمًا</div></div>
+    ${m.hasVideo ? `<button class="btn-video" onclick="openVideo(${m.rowIndex})">▶ شوف فيديو التنفيذ</button>` : ''}
+    <div class="minor"><button onclick="openPhotos(${m.rowIndex},'${m.coverPhoto && m.afterPhoto ? 'compare' : 'after'}','done_card_all')">📷 كل الصور</button></div>
+  </div></article>`;
+}
+function pickForMe(){
+  track('quick_pick_click', {});
+  budget = 'all'; gov = ''; setTab('need', 'quick_pick');
+  const list = filteredList();
+  if (!list.length) return;
+  const el = document.getElementById('card-' + list[0].rowIndex);
+  if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'center' }); el.classList.add('hl'); setTimeout(() => el.classList.remove('hl'), 3000); }
+  track('quick_pick_result', { mosque_code: list[0].requestCode });
+}
+function findM(row){ return mosques.find(m => m.rowIndex === row); }
+
+/* ===== التفاصيل ===== */
+function openDetails(row){
+  const m = findM(row); if (!m) return;
+  track('view_details', { mosque_code: m.requestCode });
+  document.getElementById('phTitle').textContent = 'مسجد ' + m.mosqueName;
+  document.getElementById('phSub').textContent = m.governorate + ' - ' + m.district;
+  document.getElementById('phTabs').innerHTML = '';
+  const rows = [['العنوان', m.address], ['عدد الأدوار', m.floors], ['حالة السجاد', m.carpetCondition], ['اتغسل آخر 6 شهور؟', m.washed6months], ['فيه مصلى سيدات؟', m.ladiesArea], ['ملاحظات', m.notes]].filter(r => r[1]);
+  document.getElementById('phGrid').innerHTML = '<div class="one" style="grid-column:1/-1">' + rows.map(r => `<div style="display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid var(--line)"><span style="color:var(--soft);font-weight:700">${r[0]}</span><b style="text-align:left">${esc(r[1])}</b></div>`).join('') + '</div>';
+  document.getElementById('phExtra').innerHTML = `<button class="primary" style="margin-top:14px" onclick="closeOv('photosOv');openDonor(${m.rowIndex},0)">أتكفل بالمسجد ده · ${money(m.cost)} جنيه</button>`;
+  openOv('photosOv');
+}
+
+/* ===== الصور ===== */
+const photoCache = {};
+function getPhotos(row){
+  if (photoCache[row]) return Promise.resolve(photoCache[row]);
+  return fetch(API_URL + '?api=photos&row=' + row).then(r => r.json()).then(p => { if (p && !p.error) photoCache[row] = p; return p; });
+}
+function openPhotos(row, kind, from, forRow){
+  const m = findM(row); if (!m) return;
+  track(from === 'card_proof' || from === 'proof_strip' ? 'view_proof' : 'view_photos', { mosque_code: m.requestCode, kind: kind, from: from || '', for_mosque: forRow ? (findM(forRow) || {}).requestCode : '' });
+  pixel('ViewContent', { content_name: m.mosqueName });
+  document.getElementById('phTitle').textContent = 'مسجد ' + m.mosqueName;
+  document.getElementById('phSub').textContent = m.governorate + ' - ' + m.district + (statusKey(m) === 'done' ? ' · بتكفل ' + donorName(m) : '');
+  document.getElementById('phTabs').innerHTML = '';
+  document.getElementById('phGrid').innerHTML = '<div class="note one">جارِ تحميل الصور...</div>';
+  const need = statusKey(m) === 'need';
+  document.getElementById('phExtra').innerHTML = need ? `<button class="primary" style="margin-top:14px" onclick="closeOv('photosOv');openDonor(${m.rowIndex},0)">أتكفل بالمسجد ده · ${money(m.cost)} جنيه</button>`
+    : (forRow ? `<button class="primary" style="margin-top:14px" onclick="closeOv('photosOv');openDonor(${forRow},0)">اتكفل بمسجد ${esc((findM(forRow) || {}).mosqueName || '')} بنفس الطريقة</button>` : '');
+  openOv('photosOv');
+  getPhotos(row).then(p => {
+    if (!p || p.error) { document.getElementById('phGrid').innerHTML = '<div class="note one">تعذر تحميل الصور</div>'; return; }
+    const vid = p.documentationVideo || '';
+    const clean = a => (a || []).filter(u => u && u !== vid);
+    const g = { before: clean(p.beforePhotos), after: clean(p.afterPhotos), sticker: clean(p.stickerPhotos) };
+    const tabs = [];
+    if (g.before.length && g.after.length) tabs.push(['compare', 'قبل / بعد']);
+    if (g.before.length) tabs.push(['before', 'قبل الغسيل']);
+    if (g.after.length) tabs.push(['after', 'أثناء وبعد']);
+    if (g.sticker.length) tabs.push(['sticker', 'الاستيكر']);
+    if (vid) tabs.push(['video', '▶ الفيديو']);
+    let active = tabs.find(t => t[0] === kind) ? kind : (tabs[0] ? tabs[0][0] : '');
+    function show(k){
+      active = k;
+      document.getElementById('phTabs').innerHTML = tabs.length > 1 ? tabs.map(t => `<button class="${t[0] === k ? 'on' : ''}" data-k="${t[0]}">${t[1]}</button>`).join('') : '';
+      document.querySelectorAll('#phTabs button').forEach(b => b.onclick = () => { track('photo_tab', { kind: b.dataset.k, mosque_code: m.requestCode }); if (b.dataset.k === 'video') { openVideo(row); return; } show(b.dataset.k); });
+      const grid = document.getElementById('phGrid');
+      if (k === 'compare') {
+        grid.innerHTML = `<div style="position:relative"><img src="${thumb(g.before[0], 800)}" onclick="lightbox('${g.before[0]}')" alt="قبل"><span style="position:absolute;bottom:8px;inset-inline-start:8px;background:var(--red-bg);color:var(--red);font-weight:800;font-size:12px;border-radius:20px;padding:2px 9px">قبل</span></div><div style="position:relative"><img src="${thumb(g.after[0], 800)}" onclick="lightbox('${g.after[0]}')" alt="بعد"><span style="position:absolute;bottom:8px;inset-inline-start:8px;background:var(--green-bg);color:var(--green);font-weight:800;font-size:12px;border-radius:20px;padding:2px 9px">بعد</span></div>`;
+      } else if (g[k] && g[k].length) {
+        grid.innerHTML = g[k].map(u => `<img loading="lazy" src="${thumb(u, 800)}" onclick="lightbox('${u}')" alt="">`).join('');
+      } else grid.innerHTML = '<div class="note one">لا توجد صور هنا</div>';
+    }
+    if (active === 'video') { closeOv('photosOv'); openVideo(row); return; }
+    if (active) show(active); else document.getElementById('phGrid').innerHTML = '<div class="note one">لسه مفيش صور لهذا المسجد</div>';
+  }).catch(() => { document.getElementById('phGrid').innerHTML = '<div class="note one">تعذر تحميل الصور، حاول تاني</div>'; });
+}
+function lightbox(u){ document.getElementById('lbImg').src = thumb(u, 1600); document.getElementById('lightbox').style.display = 'flex'; }
+
+/* ===== الفيديو =====
+   ★ سبب الشاشة السودا: إطار جوجل درايف كان صغير وبالعرض، وفيديوهات الموبايل
+   طولية. دلوقتي الإطار طولي وكبير، وبيتحمّل بعد ما النافذة تفتح (مش وهي
+   مخفية)، ومعاه زرار احتياطي يفتح الفيديو في جوجل درايف مباشرة. */
+function openVideo(row){
+  const m = findM(row); if (!m) return;
+  currentVideoCode = m.requestCode;
+  track('view_video', { mosque_code: m.requestCode });
+  pixel('ViewContent', { content_name: 'video ' + m.mosqueName });
+  const fr = document.getElementById('vFrame');
+  fr.innerHTML = '<div class="note" style="color:#aaa;padding-top:40%">جارِ تحميل الفيديو...</div>';
+  openOv('videoOv');
+  getPhotos(row).then(p => {
+    const id = driveId(p && p.documentationVideo);
+    if (!id) { fr.innerHTML = '<div class="note" style="color:#aaa;padding-top:40%">الفيديو مش متاح حاليًا</div>'; return; }
+    document.getElementById('vOpen').href = 'https://drive.google.com/file/d/' + id + '/view';
+    setTimeout(() => { fr.innerHTML = '<iframe src="https://drive.google.com/file/d/' + id + '/preview" allow="autoplay; fullscreen; encrypted-media" allowfullscreen title="فيديو التنفيذ"></iframe>'; }, 60);
+  }).catch(() => { fr.innerHTML = '<div class="note" style="color:#aaa;padding-top:40%">تعذر تحميل الفيديو</div>'; });
+}
+function closeVideo(){ document.getElementById('vFrame').innerHTML = ''; closeOv('videoOv'); }
+
+/* ===== النوافذ ===== */
+function openOv(id){ document.getElementById(id).classList.add('show'); document.body.style.overflow = 'hidden'; }
+function closeOv(id){ document.getElementById(id).classList.remove('show'); if (!document.querySelector('.ov.show')) document.body.style.overflow = ''; }
+
+/* ===== التكفل ===== */
+function mosqueSummary(m){ return `<div><b>مسجد ${esc(m.mosqueName)}</b><small>${esc(m.governorate)} - ${esc(m.district)} · ${esc(m.requestCode)}</small></div><div class="c">${money(m.cost)} ج</div>`; }
+function openDonor(row, position){
+  const m = findM(row); if (!m) return;
+  if (statusKey(m) !== 'need') { toast('المسجد ده اتكفل بيه خلاص 🤍 اختار مسجد تاني'); return; }
+  selected = m; donationType = ''; openedForm = true;
+  document.getElementById('dSum1').innerHTML = mosqueSummary(m);
+  document.getElementById('dSum2').innerHTML = mosqueSummary(m);
+  ['fDeceased', 'fName', 'fPhone'].forEach(id => { const el = document.getElementById(id); el.value = ''; el.classList.remove('err'); });
+  document.getElementById('dErr').style.display = 'none';
+  showStep('dStep1');
+  openOv('donorOv');
+  track('open_donor_form', { mosque_code: m.requestCode, cost: Number(m.cost) || 0, gov: m.governorate, position: position || 0, tab: currentTab, budget: budget });
+  pixel('InitiateCheckout', { value: Number(m.cost) || 0, currency: 'EGP', content_name: m.mosqueName });
+}
+function showStep(id){ ['dStep1', 'dStep2', 'dDone'].forEach(s => document.getElementById(s).style.display = s === id ? 'block' : 'none'); document.querySelector('#donorOv .sheet').scrollTop = 0; }
+function chooseType(t){
+  donationType = t;
+  track('donor_step_type', { choice: t, mosque_code: selected && selected.requestCode });
+  document.getElementById('memWrap').style.display = t === 'memorial' ? 'block' : 'none';
+  document.getElementById('nameHint').textContent = '(اختياري - لو سبته فاضي هيتكتب "فاعل خير")';
+  updatePreview();
+  showStep('dStep2');
+  setTimeout(() => document.getElementById(t === 'memorial' ? 'fDeceased' : 'fName').focus(), 250);
+}
+function backToStep1(){ track('donor_back', {}); showStep('dStep1'); }
+const focused = {};
+function fieldFocus(f){ if (focused[f]) return; focused[f] = 1; track('field_focus', { field: f, mosque_code: selected && selected.requestCode }); }
+function updatePreview(){
+  const dec = document.getElementById('fDeceased').value.trim();
+  const nm = document.getElementById('fName').value.trim();
+  const who = nm || 'فاعل خير';
+  document.getElementById('pvText').textContent = donationType === 'memorial'
+    ? ('صدقة جارية عن روح ' + DECEASED_PREFIX + ' ' + (dec || '……') + (nm ? (' · بتكفل ' + nm) : ''))
+    : ('اتغسل بتكفل ' + who + ' – تقبل الله منه');
+}
+// ★ نفس قواعد السيرفر: مصري 11 رقم يبدأ بـ 01، أو دولي بكود الدولة
+function normPhone(raw){
+  let d = (raw || '').replace(/[^0-9]/g, '');
+  if (d.indexOf('00') === 0) d = d.slice(2);
+  if (d.length === 12 && d.indexOf('201') === 0) d = '0' + d.slice(2);
+  if (d.length === 10 && d.charAt(0) === '1') d = '0' + d;
+  if (/^01[0125][0-9]{8}$/.test(d)) return d;
+  if (d.charAt(0) === '0') return '';
+  return (d.length >= 8 && d.length <= 15) ? d : '';
+}
+function showErr(msg, field){
+  const e = document.getElementById('dErr'); e.textContent = msg; e.style.display = 'block';
+  track('field_error', { field: field || 'general', message: msg.slice(0, 80), mosque_code: selected && selected.requestCode });
+}
+let submitting = false;
+function submitDonation(){
+  if (submitting || !selected) return;
+  document.getElementById('dErr').style.display = 'none';
+  const dec = document.getElementById('fDeceased').value.trim();
+  const nm = document.getElementById('fName').value.trim();
+  const phoneEl = document.getElementById('fPhone');
+  const phone = normPhone(phoneEl.value);
+  if (donationType === 'memorial' && !dec) { document.getElementById('fDeceased').classList.add('err'); showErr('اكتب اسم المتوفى', 'deceased'); return; }
+  if (!phone) { phoneEl.classList.add('err'); showErr('رقم الواتساب مش مظبوط. في مصر: 11 رقم يبدأ بـ 01 · برّه مصر: بكود الدولة', 'phone'); return; }
+  submitting = true;
+  const btn = document.getElementById('dSubmit'); btn.disabled = true; btn.textContent = 'جارِ تسجيل التكفل...';
+  const m = selected, t1 = Date.now();
+  const payload = { rowIndex: m.rowIndex, donorName: nm || (donationType === 'memorial' ? '' : '.'), donorPhone: phone, donorWhatsapp: phone, deceasedName: donationType === 'memorial' ? dec : '',
+    visitorId: VISITOR_ID, sessionId: SESSION_ID, donationType: donationType, campaign: [UTM.utm_campaign, UTM.utm_content].filter(Boolean).join(' / ') };
+  track('submit_donation', { mosque_code: m.requestCode, type: donationType, cost: Number(m.cost) || 0 });
+  flushEvents(false);
+  fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'donate', data: payload }) })
+    .then(r => r.json())
+    .then(res => {
+      if (res && res.success) return onDonated(m, res, payload, Date.now() - t1);
+      if (res && res.alreadyTaken) { track('donation_taken', { mosque_code: m.requestCode }); closeOv('donorOv'); toast(res.error); loadData(); return; }
+      throw new Error((res && res.error) || 'تعذر الحفظ');
+    })
+    .catch(err => verifyAfterError(m, payload, err, t1))
+    .finally(() => { submitting = false; btn.disabled = false; btn.textContent = 'تأكيد التكفل بالمسجد ده'; });
+}
+// ★ لو الاتصال فشل، بنتأكد من الشيت نفسه قبل ما نقول للمتكفل إن فيه مشكلة
+function verifyAfterError(m, payload, err, t1){
+  const msg = String(err && err.message || err);
+  return fetch(API_URL + '?api=mosques&v=' + Date.now()).then(r => r.json()).then(res => {
+    const x = (res && res.data || []).find(y => y.rowIndex === m.rowIndex);
+    const mine = x && x.status !== config.statusNeed && ((payload.deceasedName && x.deceasedName === payload.deceasedName) || (!payload.deceasedName && (x.donorName === payload.donorName || (payload.donorName === '.' && x.donorName === '.'))));
+    if (mine) return onDonated(m, { requestCode: m.requestCode, mosqueName: m.mosqueName }, payload, Date.now() - t1, true);
+    throw new Error(msg);
+  }).catch(() => {
+    track('donation_error', { mosque_code: m.requestCode, message: msg.slice(0, 120) });
+    showErr((msg && msg.length < 140 && !/fetch|network|Failed/i.test(msg)) ? msg : 'حصلت مشكلة في الاتصال. حاول تاني، أو ابعتلنا على واتساب وإحنا نسجلها لك.', 'network');
+  });
+}
+function onDonated(m, res, payload, ms, verified){
+  lastResult = { m: m, code: res.requestCode || m.requestCode, payload: payload };
+  const who = payload.deceasedName ? ('باسم ' + DECEASED_PREFIX + ' ' + payload.deceasedName) : ('باسم ' + (payload.donorName && payload.donorName !== '.' ? payload.donorName : 'فاعل خير'));
+  document.getElementById('okLine').textContent = 'مسجد ' + m.mosqueName + ' اتكتب ' + who;
+  document.getElementById('okCode').textContent = 'كود طلبك: ' + lastResult.code + ' · التكلفة ' + money(m.cost) + ' جنيه بعد التنفيذ';
+  showStep('dDone');
+  track('donation_success', { mosque_code: lastResult.code, type: payload.donationType, cost: Number(m.cost) || 0, ms: ms, verified_after_error: !!verified });
+  flushEvents(false);
+  pixel('Lead', { value: Number(m.cost) || 0, currency: 'EGP', content_name: m.mosqueName });
+  try { gtag('event', 'generate_lead', { value: Number(m.cost) || 0, currency: 'EGP' }); } catch(e){}
+  m.status = config.statusInProgress; m.donorName = payload.donorName || '.'; m.deceasedName = payload.deceasedName;
+  applyData(mosques, null, false);
+}
+function closeDonor(how){
+  if (!document.getElementById('donorOv').classList.contains('show')) return;
+  if (document.getElementById('dStep1').style.display !== 'none' || document.getElementById('dStep2').style.display !== 'none') {
+    track('donor_form_close', { how: how, step: document.getElementById('dStep2').style.display !== 'none' ? 2 : 1, mosque_code: selected && selected.requestCode, filled_phone: !!document.getElementById('fPhone').value });
+  }
+  closeOv('donorOv');
+}
+
+/* ===== واتساب ومشاركة ===== */
+function openWa(number, text){
+  const url = 'https://wa.me/' + (number || '') + '?text=' + encodeURIComponent(text || '');
+  const w = window.open(url, '_blank');
+  if (!w) location.href = url;
+}
+function sendWaConfirm(){
+  if (!lastResult) return;
+  const p = lastResult.payload, m = lastResult.m;
+  track('wa_confirm_click', { mosque_code: lastResult.code });
+  openWa(config.adminWhatsapp, 'السلام عليكم، لسه متكفل من الموقع بغسيل سجاد مسجد ' + m.mosqueName + ' (' + m.governorate + ') – كود ' + lastResult.code +
+    (p.deceasedName ? (' صدقة جارية عن روح ' + DECEASED_PREFIX + ' ' + p.deceasedName) : '') +
+    (p.donorName && p.donorName !== '.' ? ('. اسمي ' + p.donorName) : '') + '. مستني تأكيدكم 🤲');
+}
+function joinGroup(from){
+  track('group_join_click', { from: from });
+  if (config.groupLink) window.open(config.groupLink, '_blank');
+}
+function shareSite(from){
+  track('share_click', { from: from });
+  const t = lastResult
+    ? ('الحمد لله اتكفلت بغسيل سجاد مسجد ' + lastResult.m.mosqueName + ' من خلال "وصلة خير" 🤍 والدفع بيكون بعد ما تشوف الصور والفيديو. فيه مساجد تانية مستنية حد زيك:\n' + PUBLIC_URL)
+    : ('مبادرة "وصلة خير": تختار مسجد محتاج وتغسل سجاده باسمك أو باسم حد غالي عليك، والدفع بعد ما تشوف الصور والفيديو 🕌\n' + PUBLIC_URL);
+  if (navigator.share) { navigator.share({ text: t }).catch(() => {}); return; }
+  openWa('', t);
+}
+function askQuestion(from){ track('question_click', { from: from }); openWa(config.adminWhatsapp, 'السلام عليكم، عندي سؤال بخصوص مبادرة وصلة خير'); }
+function registerMosque(){ track('register_mosque_click', {}); openWa(config.adminWhatsapp, 'السلام عليكم، عايز أسجل بيانات مسجد محتاج خدمة غسيل سجاد ضمن مبادرة وصلة خير'); }
+function openSmallDonation(){ track('small_donation_click', {}); openOv('smallOv'); }
+function copyText(id){
+  const t = document.getElementById(id).textContent;
+  (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(() => toast('تم النسخ')).catch(() => toast('حدد الرقم وانسخه يدويًا'));
+}
+function toast(msg){ const t = document.getElementById('toast'); t.textContent = msg; t.style.display = 'block'; clearTimeout(t._h); t._h = setTimeout(() => t.style.display = 'none', 3200); }
+document.querySelectorAll('.faq details').forEach(d => d.addEventListener('toggle', () => { if (d.open) track('faq_open', { q: d.dataset.q }); }));
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeVideo(); ['photosOv', 'smallOv'].forEach(closeOv); closeDonor('esc'); document.getElementById('lightbox').style.display = 'none'; } });
+
+loadData();
+</script>
 </body>
 </html>
