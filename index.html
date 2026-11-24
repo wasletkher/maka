@@ -140,7 +140,11 @@ select.gov{flex:0 0 auto;border:1.5px solid var(--line);background:var(--paper);
 .card.hl{outline:3px solid var(--g500);outline-offset:2px;}
 .thumb{position:relative;aspect-ratio:16/10;background:linear-gradient(135deg,var(--m50),var(--g100));overflow:hidden;}
 .thumb img{width:100%;height:100%;object-fit:cover;}
-.thumb .noimg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:44px;opacity:.5;}
+.thumb .noimg{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;padding:14px;color:#fff;background:var(--star),linear-gradient(160deg,var(--m800),var(--m950));background-size:44px 44px,cover;}
+.thumb .noimg svg{width:62px;height:62px;opacity:.95;}
+.thumb .noimg b{font-size:17px;font-weight:900;line-height:1.35;}
+.thumb .noimg span{font-size:12.5px;font-weight:700;color:var(--g300);}
+.thumb.short{aspect-ratio:16/7;}
 .thumb .cond{position:absolute;top:10px;inset-inline-start:10px;font-size:12.5px;font-weight:800;padding:4px 10px;border-radius:20px;background:rgba(255,255,255,.95);}
 .cond.red{color:var(--red);} .cond.orange{color:var(--orange);} .cond.green{color:var(--green);}
 .thumb .more{position:absolute;bottom:10px;inset-inline-end:10px;font-size:12.5px;font-weight:800;padding:4px 10px;border-radius:20px;background:rgba(29,38,34,.72);color:#fff;border:none;}
@@ -162,6 +166,22 @@ select.gov{flex:0 0 auto;border:1.5px solid var(--line);background:var(--paper);
 .donor b{display:block;font-size:16.5px;color:var(--m900);}
 .donor .mem{font-size:14px;color:var(--g700);font-weight:800;margin-top:3px;}
 .donor .dua{font-size:13px;color:var(--soft);margin-top:5px;font-style:italic;}
+/* ★ لوحة الاسم في المساجد اللي اتغسلت */
+.plaque{position:relative;margin:2px 0;padding:16px 14px 13px;border-radius:16px;text-align:center;color:#fff;
+  background:var(--star),radial-gradient(120% 90% at 50% 0%,var(--m700),var(--m950));border:2px solid var(--g500);
+  box-shadow:inset 0 0 0 4px var(--m900),inset 0 0 0 5px rgba(227,196,117,.45),0 10px 24px rgba(46,11,10,.22);}
+.plaque .orn{color:var(--g300);font-size:13px;letter-spacing:6px;line-height:1;opacity:.9;}
+.plaque .lbl{font-size:12.5px;font-weight:700;color:var(--g100);opacity:.9;margin-top:6px;}
+.plaque .nm{font-size:23px;font-weight:900;line-height:1.45;margin:2px 0 4px;
+  background:linear-gradient(180deg,#FFF6DC,var(--g300) 55%,var(--g500));-webkit-background-clip:text;background-clip:text;color:transparent;
+  text-shadow:0 1px 0 rgba(0,0,0,.05);word-break:break-word;}
+.plaque .pref{display:block;font-size:12px;font-weight:700;color:var(--g300);-webkit-text-fill-color:var(--g300);}
+.plaque .by{font-size:13px;color:#fff;opacity:.85;font-weight:700;}
+.plaque .dua{font-size:12.5px;color:var(--g100);opacity:.8;margin-top:6px;font-style:italic;line-height:1.6;}
+.yourname{display:flex;align-items:center;gap:10px;border:1.5px dashed var(--g500);background:var(--g100);border-radius:14px;padding:9px 10px;text-align:right;width:100%;font-family:inherit;}
+.yourname .q{flex:1;font-size:13.5px;font-weight:800;color:var(--m900);line-height:1.5;}
+.yourname .q small{display:block;font-weight:600;color:var(--soft);font-size:12px;}
+.yourname .go{background:var(--m800);color:#fff;border-radius:10px;padding:7px 11px;font-weight:900;font-size:13px;white-space:nowrap;}
 .ba2{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
 .ba2 button{position:relative;border:none;padding:0;border-radius:12px;overflow:hidden;aspect-ratio:1/1;background:var(--m50);}
 .ba2 img{width:100%;height:100%;object-fit:cover;}
@@ -660,7 +680,10 @@ function filteredList(){
   if (currentTab === 'need') {
     const b = BUDGETS.find(x => x.k === budget) || BUDGETS[0];
     list = list.filter(m => b.test(Number(m.cost) || 0));
-    list.sort((a, b2) => urgency(a.carpetCondition) - urgency(b2.carpetCondition) || ((Number(a.cost) || 0) - (Number(b2.cost) || 0)));
+    // ★ الترتيب: (1) حالة السجاد (عاجل الأول) ← (2) اللي ليه صور الأول ← (3) اللي مستني متكفل من أطول مدة الأول
+    // التكلفة مش داخلة في الترتيب عشان المساجد الكبيرة متتركنش في الآخر - واللي عايز سعر معين بيستخدم فلتر الأسعار
+    const hasPic = m => (m.carpetPhoto || m.coverPhoto) ? 0 : 1;
+    list.sort((a, b2) => urgency(a.carpetCondition) - urgency(b2.carpetCondition) || (hasPic(a) - hasPic(b2)) || ((parseDate(a.registeredAt) || 9e15) - (parseDate(b2.registeredAt) || 9e15)) || (a.rowIndex - b2.rowIndex));
   } else if (currentTab === 'done') {
     list.sort((a, b2) => (parseDate(b2.executionDate) - parseDate(a.executionDate)) || (b2.rowIndex - a.rowIndex));
   } else {
@@ -674,7 +697,7 @@ function renderCards(){
   const list = filteredList();
   const hint = document.getElementById('listHint');
   hint.textContent = currentTab === 'need'
-    ? (list.length ? (list.length + ' مسجد · مرتبين من الأكثر احتياجًا') : '')
+    ? (list.length ? (list.length + ' مسجد · الأكثر احتياجًا والأقدم انتظارًا الأول') : '')
     : (list.length ? (list.length + ' مسجد') : '');
   const box = document.getElementById('cards');
   if (!list.length) {
@@ -693,7 +716,7 @@ function needCard(m, i){
   const photoCount = Number(m.beforePhotosCount) || 0;
   const proof = doneSorted().find(x => x.governorate === m.governorate && x.coverPhoto && x.afterPhoto);
   return `<article class="card" id="card-${m.rowIndex}">
-    <div class="thumb">${img ? `<img loading="${i < 2 ? 'eager' : 'lazy'}" src="${thumb(img)}" alt="سجاد مسجد ${esc(m.mosqueName)}">` : '<div class="noimg">🕌</div>'}
+    <div class="thumb${img ? '' : ' short'}">${img ? `<img loading="${i < 2 ? 'eager' : 'lazy'}" src="${thumb(img)}" alt="سجاد مسجد ${esc(m.mosqueName)}" onerror="noImg(this)">` : noImgHtml(m)}
       ${m.carpetCondition ? `<span class="cond ${condClass(m.carpetCondition)}">${esc(m.carpetCondition)}</span>` : ''}
       ${photoCount ? `<button class="more" onclick="openPhotos(${m.rowIndex},'before','card_thumb')">📷 ${photoCount} صور</button>` : ''}</div>
     <div class="body">
@@ -711,6 +734,15 @@ function needCard(m, i){
       ${proof ? `<button class="proof-link" onclick="openPhotos(${proof.rowIndex},'compare','card_proof',${m.rowIndex})">✅ شوف مسجد اتغسل في ${esc(m.governorate)} قبل وبعد ←</button>` : ''}
     </div></article>`;
 }
+// ★ مسجد من غير صور: بدل مساحة فاضية بيظهر غلاف بلون وصلة خير فيه رسمة مسجد واسمه
+const MOSQUE_SVG = '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 4l4 7h-8z" fill="#E3C475"/><rect x="31" y="10" width="2" height="6" fill="#E3C475"/><path d="M19 32c0-8.5 5.8-15 13-15s13 6.5 13 15v4H19z" fill="#E3C475"/><rect x="13" y="36" width="38" height="19" rx="2" fill="#E3C475"/><rect x="6" y="18" width="7" height="37" rx="1" fill="#C99B33"/><rect x="51" y="18" width="7" height="37" rx="1" fill="#C99B33"/><circle cx="9.5" cy="13" r="3.2" fill="#E3C475"/><circle cx="54.5" cy="13" r="3.2" fill="#E3C475"/><path d="M25 55v-9a7 7 0 0114 0v9" fill="none" stroke="#3D0F0E" stroke-width="2"/></svg>';
+function noImgHtml(m){ return '<div class="noimg">' + MOSQUE_SVG + '<b>مسجد ' + esc(m.mosqueName) + '</b><span>هتستلم صوره قبل وبعد الغسيل</span></div>'; }
+function noImg(img){
+  const box = img.parentNode, m = findM(+((box.closest('.card') || {}).id || '').replace('card-', ''));
+  if (!m) { img.remove(); return; }
+  box.classList.add('short');
+  img.outerHTML = noImgHtml(m);
+}
 function progressCard(m){
   return `<article class="card"><div class="body">
     <div class="title">مسجد ${esc(m.mosqueName)}</div>
@@ -725,12 +757,32 @@ function doneCard(m){
     <div class="title">مسجد ${esc(m.mosqueName)} <span style="font-size:13px;color:var(--green)">✓ اتغسل</span></div>
     <div class="place">${PIN}${esc(m.governorate)} - ${esc(m.district)}</div>
     ${m.coverPhoto && m.afterPhoto ? `<div class="ba2"><button class="b" onclick="openPhotos(${m.rowIndex},'before','done_card')"><img loading="lazy" src="${thumb(m.coverPhoto, 500)}" alt=""><span>قبل</span></button><button class="a" onclick="openPhotos(${m.rowIndex},'after','done_card')"><img loading="lazy" src="${thumb(m.afterPhoto, 500)}" alt=""><span>بعد</span></button></div>` : ''}
-    <div class="donor"><b>${esc(donorName(m))}</b>
-      ${m.deceasedName ? `<div class="mem">✨ صدقة جارية عن روح ${DECEASED_PREFIX} ${esc(m.deceasedName)}</div>` : ''}
-      <div class="dua">تقبل الله منه، وجعلها في ميزان حسناته صدقة جارية ما دام المسجد قائمًا</div></div>
+    ${plaqueHtml(m)}
     ${m.hasVideo ? `<button class="btn-video" onclick="openVideo(${m.rowIndex})">▶ شوف فيديو التنفيذ</button>` : ''}
     <div class="minor"><button onclick="openPhotos(${m.rowIndex},'${m.coverPhoto && m.afterPhoto ? 'compare' : 'after'}','done_card_all')">📷 كل الصور</button></div>
+    <button class="yourname" onclick="wantMyName(${m.rowIndex})"><span class="q">نفسك اسمك أو اسم حبيبك يتكتب كده؟<small>فيه مساجد مستنية دلوقتي · ومتدفعش غير لما تشوف الصور</small></span><span class="go">اختار مسجد ←</span></button>
   </div></article>`;
+}
+// ★ لوحة الاسم: لو صدقة عن متوفي اسمه هو الأبرز، ولو عن نفسه اسمه هو الأبرز
+function plaqueHtml(m){
+  const named = m.donorName && m.donorName !== '.';
+  let lbl, nm, by = '', dua;
+  if (m.deceasedName) {
+    lbl = 'اتغسل سجاد المسجد صدقة جارية عن روح';
+    nm = `<span class="pref">${DECEASED_PREFIX}</span>${esc(m.deceasedName)}`;
+    if (named) by = `<div class="by">بتكفل: ${esc(m.donorName)}</div>`;
+    dua = 'اللهم اجعلها نورًا ورحمة لصاحب الاسم ما دام المسجد قائمًا';
+  } else {
+    lbl = 'اتغسل سجاد المسجد باسم';
+    nm = named ? esc(m.donorName) : 'فاعل خير';
+    dua = 'تقبل الله منه، وجعلها في ميزان حسناته صدقة جارية';
+  }
+  return `<div class="plaque"><div class="orn">✦ ✦ ✦</div><div class="lbl">${lbl}</div><div class="nm">${nm}</div>${by}<div class="dua">${dua}</div></div>`;
+}
+function wantMyName(row){
+  const m = findM(row);
+  track('want_my_name_click', { from_mosque: m ? m.requestCode : '', memorial: !!(m && m.deceasedName) });
+  setTab('need', 'want_my_name'); goToList('want_my_name');
 }
 function pickForMe(){
   track('quick_pick_click', {});
