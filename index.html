@@ -275,6 +275,9 @@ input.in.err{border-color:var(--red);background:var(--red-bg);}
 .preview small{display:block;font-size:12px;color:var(--soft);font-weight:700;margin-bottom:4px;}
 .preview b{font-size:15.5px;color:var(--m900);line-height:1.6;}
 .assure{list-style:none;margin:8px 0 14px;padding:0;}
+.phone-row{display:flex;gap:6px;direction:ltr;}
+.phone-row select{flex:0 0 auto;width:auto;max-width:42%;border:1.5px solid var(--line,#e5ddd0);border-radius:12px;background:#fff;padding:0 6px;font-family:inherit;font-weight:800;font-size:15px;color:#2a1a18;}
+.phone-row .in{flex:1;min-width:0;}
 .reassure{display:flex;gap:8px;align-items:flex-start;background:#E9F6EF;border:1px solid #BFE5CF;color:#13583A;border-radius:12px;padding:9px 11px;font-size:13.5px;font-weight:800;line-height:1.6;margin:0 0 12px;}
 .wa-ask{width:100%;display:flex;align-items:center;justify-content:center;gap:7px;border:1.5px solid var(--wa);background:#fff;color:#128C4B;border-radius:12px;padding:10px;font-weight:900;font-size:14.5px;font-family:inherit;margin:4px 0 6px;}
 .wa-ask svg{width:17px;height:17px;}
@@ -436,8 +439,23 @@ input.in.err{border-color:var(--red);background:var(--red-bg);}
       <label class="l" for="fName">اسمك <small id="nameHint">(اختياري - لو سبته فاضي هيتكتب "فاعل خير")</small></label>
       <input class="in" id="fName" autocomplete="name" placeholder="اسمك الكريم" oninput="updatePreview()" onfocus="fieldFocus('name')">
       <label class="l" for="fPhone">رقم الواتساب</label>
-      <input class="in" id="fPhone" type="tel" inputmode="tel" autocomplete="tel" dir="ltr" placeholder="01xxxxxxxxx" onfocus="fieldFocus('phone')" oninput="this.classList.remove('err')">
-      <div class="fhint">لو في مصر: 11 رقم يبدأ بـ 01 · لو برّه مصر: اكتبه بكود الدولة (مثال: +9665xxxxxxxx). رقمك للتواصل بس ومش بيتنشر.</div>
+      <div class="phone-row">
+        <select id="fCountry" aria-label="الدولة" onchange="countryChanged()">
+          <option value="eg">🇪🇬 +20</option>
+          <option value="sa">🇸🇦 +966</option>
+          <option value="kw">🇰🇼 +965</option>
+          <option value="ae">🇦🇪 +971</option>
+          <option value="qa">🇶🇦 +974</option>
+          <option value="om">🇴🇲 +968</option>
+          <option value="bh">🇧🇭 +973</option>
+          <option value="jo">🇯🇴 +962</option>
+          <option value="ly">🇱🇾 +218</option>
+          <option value="iq">🇮🇶 +964</option>
+          <option value="other">🌍 دولة تانية</option>
+        </select>
+        <input class="in" id="fPhone" type="tel" inputmode="tel" autocomplete="tel" dir="ltr" placeholder="01xxxxxxxxx" onfocus="fieldFocus('phone')" oninput="this.classList.remove('err')">
+      </div>
+      <div class="fhint" id="phoneHint">رقمك للتواصل بس، عشان نبعتلك الصور والفيديو، ومش بيتنشر.</div>
       <div class="preview"><small>هيتكتب في سجل المسجد:</small><b id="pvText"></b></div>
       <ul class="assure">
         <li>مش هتدفع حاجة دلوقتي</li>
@@ -1081,6 +1099,43 @@ function updatePreview(){
 // ★ نفس قواعد السيرفر: مصري 11 رقم يبدأ بـ 01، أو دولي بكود الدولة
 // ★ بيحوّل الأرقام العربية (٠١٢…) والفارسي (۰۱۲…) لإنجليزي - ناس كتير بتكتب الرقم من كيبورد عربي
 function toEnDigits(s){ return (s || '').replace(/[\u0660-\u0669]/g, c => c.charCodeAt(0) - 0x0660).replace(/[\u06F0-\u06F9]/g, c => c.charCodeAt(0) - 0x06F0); }
+// ★ أرقام وهمية واضحة (01000000000 / 01111111111 / 01234567890...) - اتسجل تكفل برقم زي ده وضاع المسجد على غيره
+function fakePhone(d){
+  const tail = d.slice(-8);
+  return /^(\d)\1{6,}$/.test(tail) || /(\d)\1{6,}/.test(d) || /12345678|23456789|87654321|98765432/.test(d);
+}
+// ★ كود الدولة: متظبط على مصر، والدول اللي فيها مصريين كتير بس (عدد أرقام الرقم من غير الصفر)
+const COUNTRIES = {
+  sa: { code: '966', len: [9], ex: '5xxxxxxxx', name: 'السعودية' }, kw: { code: '965', len: [8], ex: 'xxxxxxxx', name: 'الكويت' },
+  ae: { code: '971', len: [9], ex: '5xxxxxxxx', name: 'الإمارات' }, qa: { code: '974', len: [8], ex: 'xxxxxxxx', name: 'قطر' },
+  om: { code: '968', len: [8], ex: 'xxxxxxxx', name: 'عمان' }, bh: { code: '973', len: [8], ex: 'xxxxxxxx', name: 'البحرين' },
+  jo: { code: '962', len: [9], ex: '7xxxxxxxx', name: 'الأردن' }, ly: { code: '218', len: [9], ex: '9xxxxxxxx', name: 'ليبيا' },
+  iq: { code: '964', len: [10], ex: '7xxxxxxxxx', name: 'العراق' }
+};
+function countryChanged(){
+  const c = document.getElementById('fCountry').value, el = document.getElementById('fPhone');
+  el.placeholder = c === 'eg' ? '01xxxxxxxxx' : (c === 'other' ? '+ كود الدولة والرقم' : COUNTRIES[c].ex);
+  el.classList.remove('err');
+  track('country_select', { country: c });
+}
+// ★ بيرجّع الرقم النهائي حسب الدولة المختارة (مصر: 01xxxxxxxxx · برّه: كود الدولة + الرقم)
+function phoneFromForm(){
+  const c = (document.getElementById('fCountry') || {}).value || 'eg';
+  const raw = document.getElementById('fPhone').value;
+  if (c === 'eg' || c === 'other') return normPhone(raw);
+  let d = toEnDigits(raw).replace(/[^0-9]/g, '');
+  const k = COUNTRIES[c];
+  if (d.indexOf('00' + k.code) === 0) d = d.slice(2 + k.code.length);
+  else if (d.indexOf(k.code) === 0 && d.length > k.len[0]) d = d.slice(k.code.length);
+  if (d.charAt(0) === '0') d = d.slice(1);
+  return k.len.indexOf(d.length) >= 0 ? (k.code + d) : '';
+}
+function phoneErrMsg(){
+  const c = (document.getElementById('fCountry') || {}).value || 'eg';
+  if (c === 'eg') return 'رقم الواتساب مش مظبوط: 11 رقم يبدأ بـ 01 · لو انت برّه مصر اختار دولتك من القايمة اللي جنب الرقم';
+  if (c === 'other') return 'اكتب الرقم بكود الدولة (مثال: +44xxxxxxxxxx)';
+  const k = COUNTRIES[c]; return 'رقم ' + k.name + ' بيبقى ' + k.len[0] + ' أرقام بعد +' + k.code + ' (مثال: ' + k.ex + ')';
+}
 function normPhone(raw){
   let d = toEnDigits(raw).replace(/[^0-9]/g, '');
   if (d.indexOf('00') === 0) d = d.slice(2);
@@ -1101,12 +1156,13 @@ function submitDonation(){
   const dec = document.getElementById('fDeceased').value.trim();
   const nm = document.getElementById('fName').value.trim();
   const phoneEl = document.getElementById('fPhone');
-  const phone = normPhone(phoneEl.value);
-  if (!phone) { phoneEl.classList.add('err'); showErr('رقم الواتساب مش مظبوط. في مصر: 11 رقم يبدأ بـ 01 · برّه مصر: بكود الدولة', 'phone'); return; }
+  const phone = phoneFromForm();
+  if (!phone) { phoneEl.classList.add('err'); showErr(phoneErrMsg(), 'phone'); return; }
+  if (fakePhone(phone)) { phoneEl.classList.add('err'); showErr('محتاجين رقم واتساب حقيقي عشان نبعتلك صور وفيديو المسجد باسمك 🤍 (رقمك مش هيظهر لحد)', 'phone_fake'); return; }
   submitting = true;
   const btn = document.getElementById('dSubmit'); btn.disabled = true; btn.textContent = 'جارِ تسجيل التكفل...';
   const m = selected, t1 = Date.now();
-  const payload = { rowIndex: m.rowIndex, donorName: nm || (donationType === 'memorial' ? '' : '.'), donorPhone: phone, donorWhatsapp: phone, deceasedName: donationType === 'memorial' ? dec : '',
+  const payload = { rowIndex: m.rowIndex, donorName: nm || '.', donorPhone: phone, donorWhatsapp: phone, deceasedName: donationType === 'memorial' ? dec : '',
     visitorId: VISITOR_ID, sessionId: SESSION_ID, donationType: donationType, campaign: [UTM.utm_campaign, UTM.utm_content].filter(Boolean).join(' / ') };
   track('submit_donation', { mosque_code: m.requestCode, type: donationType, cost: Number(m.cost) || 0 }); intent('submit');
   flushEvents(false);
