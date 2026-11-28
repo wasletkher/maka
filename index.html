@@ -115,6 +115,11 @@ a{color:inherit;}
 .faq .exlink{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;border:1.5px dashed var(--g500);background:var(--g100);color:var(--m900);border-radius:14px;padding:11px;font-weight:900;font-family:inherit;font-size:15px;margin-bottom:10px;}
 .live{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:12px;font-size:13.5px;font-weight:700;opacity:.92;}
 .live b{color:var(--g300);font-size:16px;font-weight:900;}
+.ticker{margin:0 0 12px;background:rgba(255,255,255,.1);border:1px solid rgba(246,217,138,.35);border-radius:12px;padding:8px 12px;font-size:13.5px;font-weight:800;line-height:1.6;min-height:42px;display:none;align-items:center;gap:8px;overflow:hidden;}
+.ticker .tk-t{transition:opacity .35s ease,transform .35s ease;}
+.ticker .tk-t.out{opacity:0;transform:translateY(8px);}
+.ticker small{color:var(--g300);font-weight:700;}
+.card.pinned{box-shadow:0 0 0 3px var(--g500),0 10px 26px rgba(156,114,34,.3);}
 
 /* ===== الخطوات ===== */
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:-14px 0 0;position:relative;}
@@ -329,6 +334,7 @@ input.in.err{border-color:var(--red);background:var(--red-bg);}
 
     <h1>اغسل سجاد مسجد <em>باسمك أو باسم حبيبك</em>… ومتدفعش غير لما تشوف الصور</h1>
     <p class="lead">اختار مسجد محتاج من القائمة، وفريق مكة يغسل ويعقّم سجاده ويبعتلك الصور والفيديو. <b>صدقة جارية</b> بتفضل في ميزانك مع كل سجدة.</p>
+    <div class="ticker" id="ticker"><span>🤍</span><span class="tk-t" id="tkText"></span></div>
     <div class="trust">
       <div><i>🔒</i>مفيش دفع مقدم</div>
       <div><i>📸</i>صور وفيديو لكل مسجد</div>
@@ -585,6 +591,9 @@ function flushEvents(useBeacon){
 }
 setInterval(function(){ flushEvents(false); }, 6000);
 function pixel(ev, data){ try { if (META_PIXEL_ID && window.fbq) fbq('track', ev, data || {}); } catch(e){} }
+// ★ حدث «نية حقيقية» لفيسبوك: أي حد عمل خطوة جادة (حجز، سأل على مسجد، اختار نوع الصدقة، كمّل فيديو الشرح)
+// ده اللي هنخلّي الإعلان يدوّر على ناس شبهه بدل اللي بيدوسوا بسرعة ويمشوا
+function intent(kind){ try { if (META_PIXEL_ID && window.fbq) fbq('trackCustom', 'WaslaIntent', { kind: kind }); } catch(e){} }
 
 track('page_view', {
   referrer: (document.referrer || '(direct)').slice(0, 150), is_mobile: IS_MOBILE, in_app: IN_APP,
@@ -687,6 +696,50 @@ function applyData(data, cfg, fromCache){
   renderProof();
   renderFilters();
   renderCards();
+  startTicker();
+  handleDeepLink(fromCache);
+}
+
+// ★ إثبات اجتماعي حقيقي: آخر الناس اللي حجزوا مساجد (من الشيت نفسه - مفيش أي رقم مألّف)
+let tkTimer = null, tkItems = [], tkIdx = 0;
+function agoText(t){
+  const day = x => { const z = new Date(x); z.setHours(0,0,0,0); return z.getTime(); };
+  const d = Math.round((day(Date.now()) - day(t)) / 864e5);
+  if (d <= 0) return 'النهارده'; if (d === 1) return 'امبارح'; if (d === 2) return 'من يومين'; if (d <= 10) return 'من ' + d + ' أيام'; return '';
+}
+function startTicker(){
+  tkItems = mosques.filter(m => statusKey(m) !== 'need' && parseDate(m.sponsoredAt) && !/تجرب/.test((m.donorName || '') + (m.deceasedName || '')))
+    .sort((a, b) => parseDate(b.sponsoredAt) - parseDate(a.sponsoredAt)).slice(0, 8)
+    .map(m => {
+      const when = agoText(parseDate(m.sponsoredAt));
+      const who = m.deceasedName ? ('على روح ' + m.deceasedName) : ((m.donorName && m.donorName !== '.') ? ('باسم ' + m.donorName) : 'من فاعل خير');
+      return when ? ('اتحجز <b>' + esc(m.mosqueName) + '</b> (' + esc(m.governorate || '') + ') ' + esc(who) + ' <small>· ' + when + '</small>') : '';
+    }).filter(Boolean);
+  const box = document.getElementById('ticker');
+  if (!tkItems.length) { box.style.display = 'none'; return; }
+  box.style.display = 'flex';
+  const el = document.getElementById('tkText');
+  el.innerHTML = tkItems[tkIdx % tkItems.length];
+  if (tkTimer) clearInterval(tkTimer);
+  if (tkItems.length > 1) tkTimer = setInterval(() => {
+    el.classList.add('out');
+    setTimeout(() => { tkIdx++; el.innerHTML = tkItems[tkIdx % tkItems.length]; el.classList.remove('out'); }, 350);
+  }, 4000);
+}
+
+// ★ لينك مسجد معيّن (?m=كود المسجد): الإعلان اللي بيعرض مسجد بعينه يودّي الزائر عليه مباشرة
+let pinnedCode = (QS.get('m') || '').trim(), deepDone = false;
+function handleDeepLink(fromCache){
+  if (!pinnedCode || deepDone || fromCache) return;
+  const m = mosques.find(x => (x.requestCode || '') === pinnedCode);
+  deepDone = true;
+  if (!m) { track('deeplink', { code: pinnedCode, found: false }); pinnedCode = ''; return; }
+  track('deeplink', { code: pinnedCode, found: true, status: statusKey(m) });
+  setTab(statusKey(m), 'deeplink');
+  setTimeout(() => {
+    const c = document.getElementById('card-' + m.rowIndex);
+    if (c) { c.classList.add('pinned'); c.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+  }, 300);
 }
 function renderSkeleton(){
   let h = '';
@@ -755,7 +808,7 @@ function openExplainer(from){
       const pct = Math.floor(v.currentTime / v.duration * 100);
       [25, 50, 75].forEach(m => { if (pct >= m && !exMarks[m]) { exMarks[m] = 1; track('explainer_progress', { pct: m }); } });
     });
-    v.addEventListener('ended', () => { track('explainer_complete', {}); document.getElementById('exEnd').style.display = 'flex'; });
+    v.addEventListener('ended', () => { track('explainer_complete', {}); intent('explainer_complete'); document.getElementById('exEnd').style.display = 'flex'; });
   }
   document.getElementById('exEnd').style.display = 'none';
   openOv('exOv');
@@ -791,6 +844,7 @@ function filteredList(){
   } else {
     list.sort((a, b2) => (parseDate(b2.sponsoredAt) - parseDate(a.sponsoredAt)) || (b2.rowIndex - a.rowIndex));
   }
+  if (pinnedCode) { const i = list.findIndex(m => m.requestCode === pinnedCode); if (i > 0) list.unshift(list.splice(i, 1)[0]); }
   return list;
 }
 
@@ -846,7 +900,7 @@ function noImg(img){
   img.outerHTML = noImgHtml(m);
 }
 function progressCard(m){
-  return `<article class="card"><div class="body">
+  return `<article class="card" id="card-${m.rowIndex}"><div class="body">
     <div class="title">مسجد ${esc(m.mosqueName)}</div>
     <div class="place">${PIN}${esc(m.governorate)} - ${esc(m.district)}</div>
     <div class="donor"><b>🕌 اتكتب باسم: ${esc(donorName(m))}</b>
@@ -855,7 +909,7 @@ function progressCard(m){
   </div></article>`;
 }
 function doneCard(m){
-  return `<article class="card"><div class="body">
+  return `<article class="card" id="card-${m.rowIndex}"><div class="body">
     <div class="title">مسجد ${esc(m.mosqueName)} <span style="font-size:13px;color:var(--green)">✓ اتغسل</span></div>
     <div class="place">${PIN}${esc(m.governorate)} - ${esc(m.district)}</div>
     ${m.coverPhoto && m.afterPhoto ? `<div class="ba2"><button class="b" onclick="openPhotos(${m.rowIndex},'before','done_card')"><img loading="lazy" src="${thumb(m.coverPhoto, 500)}" alt=""><span>قبل</span></button><button class="a" onclick="openPhotos(${m.rowIndex},'after','done_card')"><img loading="lazy" src="${thumb(m.afterPhoto, 500)}" alt=""><span>بعد</span></button></div>` : ''}
@@ -1000,7 +1054,7 @@ function openDonor(row, position){
 function showStep(id){ ['dStep1', 'dStep2', 'dDone'].forEach(s => document.getElementById(s).style.display = s === id ? 'block' : 'none'); document.querySelector('#donorOv .sheet').scrollTop = 0; }
 function chooseType(t){
   donationType = t;
-  track('donor_step_type', { choice: t, mosque_code: selected && selected.requestCode });
+  track('donor_step_type', { choice: t, mosque_code: selected && selected.requestCode }); intent('step_type');
   document.getElementById('memWrap').style.display = t === 'memorial' ? 'block' : 'none';
   document.getElementById('nameHint').textContent = '(اختياري - لو سبته فاضي هيتكتب "فاعل خير")';
   updatePreview();
@@ -1048,7 +1102,7 @@ function submitDonation(){
   const m = selected, t1 = Date.now();
   const payload = { rowIndex: m.rowIndex, donorName: nm || (donationType === 'memorial' ? '' : '.'), donorPhone: phone, donorWhatsapp: phone, deceasedName: donationType === 'memorial' ? dec : '',
     visitorId: VISITOR_ID, sessionId: SESSION_ID, donationType: donationType, campaign: [UTM.utm_campaign, UTM.utm_content].filter(Boolean).join(' / ') };
-  track('submit_donation', { mosque_code: m.requestCode, type: donationType, cost: Number(m.cost) || 0 });
+  track('submit_donation', { mosque_code: m.requestCode, type: donationType, cost: Number(m.cost) || 0 }); intent('submit');
   flushEvents(false);
   fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'donate', data: payload }) })
     .then(r => r.json())
@@ -1104,7 +1158,7 @@ function closeStay(how){ track('exit_offer_close', { how: how }); closeOv('stayO
 // ★ سؤال عن مسجد معيّن: رسالة جاهزة فيها اسم المسجد وكوده عشان الكول سنتر يرد على طول
 function askAboutMosque(from){
   const m = selected || {};
-  track('form_whatsapp_click', { from: from, mosque_code: m.requestCode || '' });
+  track('form_whatsapp_click', { from: from, mosque_code: m.requestCode || '' }); intent('wa_mosque');
   pixel('Contact', { content_name: m.mosqueName || '' });
   if (from === 'exit_offer') closeOv('stayOv'); else closeDonor('wa');
   openWa(config.adminWhatsapp, 'السلام عليكم، شفت مسجد ' + (m.mosqueName || '') + (m.governorate ? (' (' + m.governorate + ')') : '') + (m.requestCode ? (' – كود ' + m.requestCode) : '') + ' على موقع وصلة خير، وعندي سؤال قبل ما أتكفل بيه');
@@ -1136,7 +1190,7 @@ function shareSite(from){
   if (navigator.share) { navigator.share({ text: t }).catch(() => {}); return; }
   openWa('', t);
 }
-function askQuestion(from){ track('question_click', { from: from }); pixel('Contact', {}); openWa(config.adminWhatsapp, 'السلام عليكم، عندي سؤال بخصوص مبادرة وصلة خير'); }
+function askQuestion(from){ track('question_click', { from: from }); pixel('Contact', {}); intent('wa_question'); openWa(config.adminWhatsapp, 'السلام عليكم، عندي سؤال بخصوص مبادرة وصلة خير'); }
 function registerMosque(){ track('register_mosque_click', {}); openWa(config.adminWhatsapp, 'السلام عليكم، عايز أسجل بيانات مسجد محتاج خدمة غسيل سجاد ضمن مبادرة وصلة خير'); }
 function openSmallDonation(){ track('small_donation_click', {}); openOv('smallOv'); }
 function copyText(id){
