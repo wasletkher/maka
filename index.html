@@ -839,6 +839,12 @@ function filteredList(){
     // التكلفة مش داخلة في الترتيب عشان المساجد الكبيرة متتركنش في الآخر - واللي عايز سعر معين بيستخدم فلتر الأسعار
     const hasPic = m => (m.carpetPhoto || m.coverPhoto) ? 0 : 1;
     list.sort((a, b2) => urgency(a.carpetCondition) - urgency(b2.carpetCondition) || (hasPic(a) - hasPic(b2)) || ((parseDate(a.registeredAt) || 9e15) - (parseDate(b2.registeredAt) || 9e15)) || (a.rowIndex - b2.rowIndex));
+    // ★ أول انطباع: لو مفيش فلتر سعر، أول 3 كروت مساجد لحد 2,500 جنيه (الداتا: أول مسجد 4,000 كان بيصدم الناس ويمشوا)
+    // وبعدهم الترتيب العادي يكمل - يعني المساجد الكبيرة بتفضل ظاهرة مباشرة بعدهم
+    if (budget === 'all') {
+      const easy = list.filter(m => (Number(m.cost) || 0) > 0 && (Number(m.cost) || 0) <= 2500).slice(0, 3);
+      if (easy.length) list = easy.concat(list.filter(m => easy.indexOf(m) < 0));
+    }
   } else if (currentTab === 'done') {
     list.sort((a, b2) => (parseDate(b2.executionDate) - parseDate(a.executionDate)) || (b2.rowIndex - a.rowIndex));
   } else {
