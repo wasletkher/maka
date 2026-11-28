@@ -270,6 +270,11 @@ input.in.err{border-color:var(--red);background:var(--red-bg);}
 .preview small{display:block;font-size:12px;color:var(--soft);font-weight:700;margin-bottom:4px;}
 .preview b{font-size:15.5px;color:var(--m900);line-height:1.6;}
 .assure{list-style:none;margin:8px 0 14px;padding:0;}
+.reassure{display:flex;gap:8px;align-items:flex-start;background:#E9F6EF;border:1px solid #BFE5CF;color:#13583A;border-radius:12px;padding:9px 11px;font-size:13.5px;font-weight:800;line-height:1.6;margin:0 0 12px;}
+.wa-ask{width:100%;display:flex;align-items:center;justify-content:center;gap:7px;border:1.5px solid var(--wa);background:#fff;color:#128C4B;border-radius:12px;padding:10px;font-weight:900;font-size:14.5px;font-family:inherit;margin:4px 0 6px;}
+.wa-ask svg{width:17px;height:17px;}
+#stayOv .sheet{text-align:center;}
+#stayOv h3{padding:0;margin-bottom:4px;}
 .assure li{font-size:13.5px;color:var(--soft);display:flex;gap:7px;margin:5px 0;}
 .assure li::before{content:'✓';color:var(--green);font-weight:900;}
 .primary{width:100%;border:none;border-radius:14px;padding:15px;font-size:17px;font-weight:900;color:#fff;background:linear-gradient(135deg,var(--g500),var(--g700));box-shadow:0 8px 18px rgba(156,114,34,.3);}
@@ -331,7 +336,7 @@ input.in.err{border-color:var(--red);background:var(--red-bg);}
     </div>
     <button class="explainer" onclick="openExplainer('hero')" aria-label="شوف فيديو شرح الفكرة">
       <span class="th"><img src="explainer_poster.jpg" alt=""><i>▶</i></span>
-      <span><b>أول مرة تسمع عن وصلة خير؟</b><small>شوف الفكرة كلها في دقيقة ▶</small></span>
+      <span><b>أول مرة تسمع عن وصلة خير؟</b><small>شوف الفكرة كلها في 40 ثانية ▶</small></span>
       <span class="go">‹</span>
     </button>
     <button class="cta-main" onclick="goToList('hero')">اختار مسجد دلوقتي
@@ -372,7 +377,7 @@ input.in.err{border-color:var(--red);background:var(--red-bg);}
 
   <section class="faq">
     <div class="sec-title"><h2>أسئلة بتيجي في بال الناس</h2></div>
-    <button class="exlink" onclick="openExplainer('faq')">▶ الإجابات كلها في فيديو دقيقة واحدة</button>
+    <button class="exlink" onclick="openExplainer('faq')">▶ الفكرة كلها في فيديو 40 ثانية</button>
     <details data-q="pay"><summary>أدفع امتى وإزاي؟</summary><p>بعد ما المسجد يتغسل وتستلم الصور والفيديو كاملين. ساعتها تحوّل التكلفة فودافون كاش أو إنستاباي، وتبعتلنا صورة التحويل. مفيش أي دفع قبل التنفيذ.</p></details>
     <details data-q="bigger"><summary>لو المسجد طلع أكبر من المكتوب؟</summary><p>السعر اللي قدامك نهائي وشامل. مهما كانت المساحة الفعلية، مش هيتطلب منك أي مبلغ زيادة.</p></details>
     <details data-q="get"><summary>هيوصلني إيه بالظبط؟</summary><p>صور المسجد قبل وأثناء وبعد الغسيل، وفيديو توثيق للتنفيذ، والمسجد بيتسجل في الموقع في تاب "اتغسلت" باسمك أو باسم حبيبك.</p></details>
@@ -407,17 +412,19 @@ input.in.err{border-color:var(--red);background:var(--red-bg);}
       <div class="progress"><i class="on"></i><i></i></div>
       <h3 id="dTitle">الصدقة دي باسم مين؟</h3>
       <p class="sub">اختار، وبعدها خطوة واحدة وتخلص.</p>
-      <button class="ghost" style="margin:0 0 10px;padding:6px;font-size:13.5px" onclick="openExplainer('donor_form')">▶ مش متأكد إزاي بتشتغل؟ شوف فيديو دقيقة</button>
+      <button class="ghost" style="margin:0 0 10px;padding:6px;font-size:13.5px" onclick="openExplainer('donor_form')">▶ مش متأكد إزاي بتشتغل؟ شوف فيديو 40 ثانية</button>
       <div class="msum" id="dSum1"></div>
+      <div class="reassure">🔒 <span>مفيش أي دفع دلوقتي.. إحنا بس بنحجزلك المسجد باسمك، وفريقنا بيكلمك على واتساب يطمّنك ويرد على أي سؤال.</span></div>
       <button class="choice" onclick="chooseType('memorial')"><span class="e">🕊</span><span><b>عن روح حد غالي عليّا <span class="tag">الأكثر اختيارًا</span></b><span>صدقة جارية تفضل في ميزانه مع كل صلاة على السجاد ده</span></span></button>
       <button class="choice" onclick="chooseType('self')"><span class="e">🤲</span><span><b>عن نفسي</b><span>صدقة باسمك، أو باسم "فاعل خير" لو حابب</span></span></button>
+      <button class="wa-ask" onclick="askAboutMosque('form_step1')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.76.46 3.4 1.26 4.83L2 22l5.3-1.24A9.96 9.96 0 0012 22c5.52 0 10-4.48 10-10S17.52 2 12 2z"/></svg>عندي سؤال عن المسجد ده الأول</button>
     </div>
     <div id="dStep2" style="display:none">
       <div class="progress"><i class="on"></i><i class="on"></i></div>
       <h3>آخر خطوة 🌿</h3>
       <div class="msum" id="dSum2"></div>
       <div id="memWrap">
-        <label class="l" for="fDeceased">اسم المتوفى</label>
+        <label class="l" for="fDeceased">اسم المتوفى <small>(لو مش جاهز دلوقتي، سيبه وهنسألك عليه على واتساب)</small></label>
         <input class="in" id="fDeceased" autocomplete="off" placeholder="مثال: الحاج محمد أحمد" oninput="updatePreview()" onfocus="fieldFocus('deceased')">
       </div>
       <label class="l" for="fName">اسمك <small id="nameHint">(اختياري - لو سبته فاضي هيتكتب "فاعل خير")</small></label>
@@ -432,7 +439,8 @@ input.in.err{border-color:var(--red);background:var(--red-bg);}
         <li>تستلم الصور والفيديو، وبعدها تحوّل التكلفة</li>
       </ul>
       <div class="err-box" id="dErr"></div>
-      <button class="primary" id="dSubmit" onclick="submitDonation()">تأكيد التكفل بالمسجد ده</button>
+      <button class="primary" id="dSubmit" onclick="submitDonation()">احجز المسجد ده باسمي 🤍</button>
+      <button class="wa-ask" onclick="askAboutMosque('form_step2')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.76.46 3.4 1.26 4.83L2 22l5.3-1.24A9.96 9.96 0 0012 22c5.52 0 10-4.48 10-10S17.52 2 12 2z"/></svg>محتاج أسأل الأول؟ كلمنا واتساب</button>
       <button class="ghost" onclick="backToStep1()">رجوع</button>
     </div>
     <div id="dDone" style="display:none;text-align:center">
@@ -452,6 +460,19 @@ input.in.err{border-color:var(--red);background:var(--red-bg);}
       <button class="btn-sec" onclick="shareSite('success')">قول لحد بيحب الخير 🤍</button>
       <button class="ghost" onclick="closeDonor('done')">رجوع للمساجد</button>
     </div>
+  </div>
+</div>
+
+<!-- ===== متردد؟ (بيظهر مرة واحدة لما حد يقفل الفورم من غير ما يكمّل) ===== -->
+<div class="ov" id="stayOv" onclick="if(event.target===this)closeStay('backdrop')">
+  <div class="sheet" role="dialog" aria-modal="true">
+    <button class="x" onclick="closeStay('x')" aria-label="إغلاق">×</button>
+    <div style="font-size:40px">🤍</div>
+    <h3>متردد شوية؟ عادي جدًا</h3>
+    <p class="sub" style="margin-bottom:14px">ابعتلنا سؤالك على واتساب وهنرد عليك فورًا.. ومفيش أي التزام.</p>
+    <button class="btn-wa" onclick="askAboutMosque('exit_offer')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.76.46 3.4 1.26 4.83L2 22l5.3-1.24A9.96 9.96 0 0012 22c5.52 0 10-4.48 10-10S17.52 2 12 2z"/></svg>اسأل عن المسجد ده على واتساب</button>
+    <button class="btn-sec" onclick="closeStay('video');openExplainer('exit_offer')">▶ افهم الفكرة في فيديو قصير</button>
+    <button class="ghost" onclick="closeStay('no')">لا شكرًا</button>
   </div>
 </div>
 
@@ -1021,7 +1042,6 @@ function submitDonation(){
   const nm = document.getElementById('fName').value.trim();
   const phoneEl = document.getElementById('fPhone');
   const phone = normPhone(phoneEl.value);
-  if (donationType === 'memorial' && !dec) { document.getElementById('fDeceased').classList.add('err'); showErr('اكتب اسم المتوفى', 'deceased'); return; }
   if (!phone) { phoneEl.classList.add('err'); showErr('رقم الواتساب مش مظبوط. في مصر: 11 رقم يبدأ بـ 01 · برّه مصر: بكود الدولة', 'phone'); return; }
   submitting = true;
   const btn = document.getElementById('dSubmit'); btn.disabled = true; btn.textContent = 'جارِ تسجيل التكفل...';
@@ -1038,7 +1058,7 @@ function submitDonation(){
       throw new Error((res && res.error) || 'تعذر الحفظ');
     })
     .catch(err => verifyAfterError(m, payload, err, t1))
-    .finally(() => { submitting = false; btn.disabled = false; btn.textContent = 'تأكيد التكفل بالمسجد ده'; });
+    .finally(() => { submitting = false; btn.disabled = false; btn.textContent = 'احجز المسجد ده باسمي 🤍'; });
 }
 // ★ لو الاتصال فشل، بنتأكد من الشيت نفسه قبل ما نقول للمتكفل إن فيه مشكلة
 function verifyAfterError(m, payload, err, t1){
@@ -1068,10 +1088,26 @@ function onDonated(m, res, payload, ms, verified){
 }
 function closeDonor(how){
   if (!document.getElementById('donorOv').classList.contains('show')) return;
+  let abandoned = false;
   if (document.getElementById('dStep1').style.display !== 'none' || document.getElementById('dStep2').style.display !== 'none') {
+    abandoned = how !== 'wa';
     track('donor_form_close', { how: how, step: document.getElementById('dStep2').style.display !== 'none' ? 2 : 1, mosque_code: selected && selected.requestCode, filled_phone: !!document.getElementById('fPhone').value });
   }
   closeOv('donorOv');
+  // ★ اللي قفل الفورم ومكمّلش: نعرض عليه مرة واحدة بس يسأل على واتساب بدل ما يضيع
+  if (abandoned && !safeGet('sessionStorage', 'wk_stay')) {
+    safeSet('sessionStorage', 'wk_stay', '1');
+    setTimeout(() => { openOv('stayOv'); track('exit_offer_shown', { mosque_code: selected && selected.requestCode }); }, 350);
+  }
+}
+function closeStay(how){ track('exit_offer_close', { how: how }); closeOv('stayOv'); }
+// ★ سؤال عن مسجد معيّن: رسالة جاهزة فيها اسم المسجد وكوده عشان الكول سنتر يرد على طول
+function askAboutMosque(from){
+  const m = selected || {};
+  track('form_whatsapp_click', { from: from, mosque_code: m.requestCode || '' });
+  pixel('Contact', { content_name: m.mosqueName || '' });
+  if (from === 'exit_offer') closeOv('stayOv'); else closeDonor('wa');
+  openWa(config.adminWhatsapp, 'السلام عليكم، شفت مسجد ' + (m.mosqueName || '') + (m.governorate ? (' (' + m.governorate + ')') : '') + (m.requestCode ? (' – كود ' + m.requestCode) : '') + ' على موقع وصلة خير، وعندي سؤال قبل ما أتكفل بيه');
 }
 
 /* ===== واتساب ومشاركة ===== */
@@ -1100,7 +1136,7 @@ function shareSite(from){
   if (navigator.share) { navigator.share({ text: t }).catch(() => {}); return; }
   openWa('', t);
 }
-function askQuestion(from){ track('question_click', { from: from }); openWa(config.adminWhatsapp, 'السلام عليكم، عندي سؤال بخصوص مبادرة وصلة خير'); }
+function askQuestion(from){ track('question_click', { from: from }); pixel('Contact', {}); openWa(config.adminWhatsapp, 'السلام عليكم، عندي سؤال بخصوص مبادرة وصلة خير'); }
 function registerMosque(){ track('register_mosque_click', {}); openWa(config.adminWhatsapp, 'السلام عليكم، عايز أسجل بيانات مسجد محتاج خدمة غسيل سجاد ضمن مبادرة وصلة خير'); }
 function openSmallDonation(){ track('small_donation_click', {}); openOv('smallOv'); }
 function copyText(id){
